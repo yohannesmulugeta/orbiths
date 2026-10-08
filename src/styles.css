@@ -75,3 +75,4 @@
 .about-visual-main img{object-position:center 40%}.solution-feature-2 .solution-feature-image img{object-position:58% center}
 @media(max-width:900px){.hero-inner{padding-top:85px}.hero-inner h1{font-size:clamp(77px,11vw,116px)}}
 @media(max-width:700px){.hero-panel{min-height:760px}.hero-inner{padding:72px 25px 130px}.hero-inner h1{font-size:clamp(63px,15vw,105px);margin-top:42px}.hero-photo img{object-position:65% center}.hero-shade{background:linear-gradient(90deg,rgba(5,27,23,.87),rgba(5,27,23,.54)),linear-gradient(0deg,rgba(5,24,21,.9),transparent 70%)}.hero-buttons{gap:23px}.hero-copy>p{font-size:16px}.catalog-img.equipment-image img{padding:22px}}
+@media(max-width:400px){.hero-inner h1{font-size:clamp(52px,16vw,61px)}}
