@@ -1,57 +1,70 @@
-# Orbit Health Solutions — Website Redesign
+# Orbit Health Solutions PLC — React Website
 
-An original, responsive multi-page website for **Orbit Health Solutions PLC**, developed as an initial review build. The visual direction takes inspiration from the clarity, editorial typography, fluid ambient imagery and generous whitespace of Integrated Biosciences, without copying its layouts or assets.
+A cinematic, image-led redesign of the OrbitHS website, inspired by the visual quality and storytelling approach of [Integrated Biosciences](https://integratedbiosciences.com/), while using **original layouts and original code** appropriate to OrbitHS.
 
-## Included in v1
+## Tech stack
 
-- `index.html` — immersive homepage, company introduction, eight solution categories, delivery approach, mobile clinics feature and contact calls to action.
-- `solutions.html` — all eight medical equipment / infrastructure categories.
-- `about.html` — company positioning and six published service areas.
-- `contact.html` — office address, telephone links and working hours.
-- `styles.css` — responsive design system, mobile layouts, accessible focus states and reduced-motion support.
-- `main.js` — accessible mobile navigation and progressive scroll animations.
-- `assets/orbit-mark.svg` — **provisional** conceptual mark; replace with the company's approved logo before launch.
+- **React 18 + TypeScript** — component architecture and typed company content.
+- **Vite 6** — production bundling.
+- **Tailwind CSS 3 + custom CSS** — responsive design and bespoke editorial layouts.
+- **GSAP ScrollTrigger** — reveal animations with respect for reduced-motion preferences.
+- **Lucide React** — lightweight vector icons.
+- **React Router (hash routing)** — GitHub Pages-safe routes, including direct refreshes.
 
-## Publish on GitHub Pages
+## Pages
 
-This is a static website with no build step. The publishing source is the `main` branch at `/(root)`.
-
-1. Open **https://github.com/yohannesmulugeta/orbiths/settings/pages** while logged in as a repository admin.
-2. In **Build and deployment**, choose **Source: Deploy from a branch**.
-3. Choose **Branch: main** and **Folder: /(root)**, then click **Save**.
-4. After GitHub finishes building, the site will be available at **https://yohannesmulugeta.github.io/orbiths/**.
-
-Updates committed to `main` will automatically redeploy. The GitHub Pages URL is independent of the existing `orbiths.com` domain and does not modify its DNS.
+1. Home — full-bleed, photographic medical hero; company introduction; editorial photo collage; eight equipment categories; delivery timeline; mobile clinics story; inquiry CTA.
+2. Solutions — detailed overview of all eight equipment/infrastructure areas from the existing company site.
+3. Company — company introduction and its six published service areas.
+4. Contact — phone links, office location and hours.
 
 ## Run locally
 
-No dependencies or build tools are required. From the repository root:
-
 ```bash
-python3 -m http.server 8080
+npm install
+npm run dev
 ```
 
-Then open `http://localhost:8080/`. Alternatively use VS Code Live Server.
+To check or compile:
 
-## Content and production readiness
+```bash
+npm test
+npm run build
+npm run preview
+```
 
-Company offerings, office information and numbers are based on the current public content of [orbiths.com](https://orbiths.com/). Verify all contact information, partner approvals, services and use of imagery with OrbitHS before launch. Avoid inventing equipment specifications, regulatory accreditations, client testimonials or case study results.
+Node.js 22 is recommended.
 
-**Outstanding blockers for production:**
+## Publishing to GitHub Pages
 
-1. **Image migration:** some service photography is temporarily referenced from `orbiths.com/wp-content/uploads`. These assets **must be copied to repository/CDN storage before redirecting the domain**, otherwise they can break when WordPress is replaced. Optimize and license-check all imagery.
-2. **Official brand assets:** replace the provisional mark with the approved logo, fonts/color specifications if they differ.
-3. **Enquiry workflow:** the site uses working office telephone links now. Add and test a server-side contact form only after OrbitHS confirms an inbox and delivery provider. Do not claim submissions work without backend confirmation.
-4. **Review:** verify copy, page content, contact details, and old URL redirect mapping with company stakeholders.
-5. **Deployment:** the redesign has been merged to `main`. Enable GitHub Pages under Settings → Pages → Deploy from a branch → `main` / `(root)` to make the preview public. Keep existing production DNS untouched until a separately approved cutover.
-6. **Search:** when final pages/URLs are approved, create a sitemap, robots file, canonical URLs, social share image and appropriate schema; verify analytics and Search Console.
+This React site **must deploy its compiled `dist/` files**, not raw `src/` code or `index.html` from the repository root.
 
-## Design and development principles
+1. Open [Repository settings → Pages](https://github.com/yohannesmulugeta/orbiths/settings/pages).
+2. Under **Build and deployment**, set **Source** to **GitHub Actions**. Do not leave it on `Deploy from a branch`.
+3. Merge the React pull request to `main`.
+4. The workflow `.github/workflows/pages.yml` automatically installs dependencies, runs source checks, builds with `GITHUB_PAGES=true` and deploys `dist/`.
+5. Confirm the successful **Build and deploy OrbitHS (React)** workflow on the [Actions tab](https://github.com/yohannesmulugeta/orbiths/actions).
+6. Open `https://yohannesmulugeta.github.io/orbiths/`.
 
-- Semantic, readable HTML and keyboard-operable navigation.
-- Responsive layout for desktop, tablet and mobile.
-- CSS-led atmosphere, low-JS interactions and respect for `prefers-reduced-motion`.
-- No invented operational metrics or success claims.
-- Editorial content guides visitors from expertise → approach → conversation.
+`vite.config.ts` sets base to `/orbiths/` for Pages. Navigation uses hash routing (`#/solutions`, `#/about`) to avoid GitHub Pages 404s on hard refresh. A production domain migration can later use URL-based routing/SSG if required for SEO.
 
-© Orbit Health Solutions PLC. This is a design/development draft.
+**The GitHub Pages URL is a staging/review website**. Do not point `orbiths.com` to this site before the company approves the content and imagery.
+
+## Image policy
+
+- High-resolution radiology and microscope imagery uses selected **free Unsplash photos**: [medical scanner](https://unsplash.com/fr/photos/une-grande-machine-blanche-QTP8UKW_PgI) and [medical microscope](https://unsplash.com/photos/a-microscope-being-used-to-examine-a-substance-YDLlT9DNOI4).
+- Category photos include media from the existing `orbiths.com/wp-content/uploads/` site.
+- The live website currently loads some images from these external hosts. **Prior to replacing old WordPress hosting, obtain approval, optimize the originals and migrate them to `public/images` or an approved CDN.** This also avoids broken remote media if the old server is retired.
+- Illustrative equipment photography **must not be presented as installed systems, actual inventory or company projects** unless OrbitHS confirms that claim.
+- The orbital brand mark is a **provisional design**, not the company's official logo.
+
+## Production checklist
+
+- [ ] Confirm the company's approved logo, team, solution descriptions, addresses, phone numbers and business proof.
+- [ ] Approve visuals, photo licensing and the distinction between stock/reference imagery and company project photos.
+- [ ] Localize and optimize images (WebP/AVIF, responsive sizes, lazy loading).
+- [ ] Add a secured contact workflow when an approved delivery address/provider is confirmed.
+- [ ] Review accessibility, keyboard navigation, mobile and desktop design in the actual deployed site.
+- [ ] If/when moving to the main domain, plan old URL redirects, canonical URLs, SEO, analytics and a rollback path.
+
+**Orbit Health Solutions PLC.** All company facts require approval before a final public domain cutover.
