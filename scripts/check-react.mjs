@@ -2,7 +2,7 @@ import { readFileSync, existsSync } from 'node:fs';
 import { join } from 'node:path';
 
 const files = [
-  'index.html','vite.config.ts','tailwind.config.js','postcss.config.js',
+  'app/index.html','vite.config.ts','tailwind.config.js','postcss.config.js',
   'src/main.tsx','src/App.tsx','src/components.tsx','src/pages.tsx',
   'src/content.ts','src/styles.css','public/orbit-symbol.svg',
   '.github/workflows/pages.yml'
@@ -22,7 +22,7 @@ if (!css.includes('@tailwind utilities')) errors.push('Tailwind CSS missing');
 if (!pages.includes('ResponsiveImage')) errors.push('Medical photography missing');
 if (!read('src/components.tsx').includes('ScrollTrigger')) errors.push('GSAP scroll-trigger missing');
 if (!workflow.includes('npm run build') || !workflow.includes('deploy-pages@v4')) errors.push('GitHub Pages build/deploy missing');
-const media=[...content.matchAll(/https:\/\/[^'\s]+/g)].map(m=>m[0]);
-if (media.length<7) errors.push('Insufficient photo assets');
+const media=[...content.matchAll(/asset\('([^']+)'\)/g)].map(m=>m[1]);
+for (const name of media) if (!existsSync('public/images/'+name+'.webp')) errors.push('Missing local image '+name);
 if (errors.length) { console.error(errors.join('\n')); process.exit(1); }
 console.log('OrbitHS smoke checks passed: source files, 4 routes, 8 categories, photographic assets, Tailwind, GSAP, Pages workflow.');

@@ -6,9 +6,8 @@ import { ArrowBadge, ButtonLink, CallToAction, Eyebrow, MotionContainer, Respons
 function Hero() {
   return <section className="hero-section shell" aria-labelledby="hero-title">
     <div className="hero-panel">
-      <div className="hero-photo" aria-hidden="true"><ResponsiveImage eager src={images.hero} alt=""/></div>
+      <div className="hero-photo" aria-hidden="true"><ResponsiveImage eager src={images.hero} alt="" sizes="100vw"/></div>
       <div className="hero-shade" aria-hidden="true"/>
-      <div className="hero-biomorph" aria-hidden="true"><span className="biomorph-one"/><span className="biomorph-two"/><span className="biomorph-three"/></div>
       <div className="hero-inner">
         <div className="hero-kicker"><span className="pulse-dot"/> HEALTHCARE EQUIPMENT & INFRASTRUCTURE</div>
         <h1 id="hero-title">Technology<br/>for <span>better</span><br/>care.</h1>
@@ -37,7 +36,7 @@ function Intro() {
 function FeatureGallery(){
   return <section className="visual-break shell" aria-label="Healthcare technology in focus" data-reveal>
     <div className="visual-main">
-      <ResponsiveImage src={images.radiology} alt="Modern radiology scanner in a hospital diagnostic suite" />
+      <ResponsiveImage src={images.operatingRoom} alt="Surgical lighting and monitoring equipment in an operating room" />
       <div className="visual-caption"><span>THE TECHNOLOGY BEHIND CARE</span><span className="mini-plus">✳</span></div>
     </div>
     <div className="visual-side">
@@ -49,7 +48,7 @@ function FeatureGallery(){
 
 function SolutionCard({item,index}:{item:Service,index:number}){
   return <Link className={'solution-feature solution-feature-'+index} to="/solutions" data-reveal>
-    <div className="solution-feature-image"><ResponsiveImage src={index===0?images.microscope:index===1?images.radiology:item.image} alt={item.alt}/></div>
+    <div className="solution-feature-image"><ResponsiveImage src={item.image} alt={item.alt} sizes="(max-width: 900px) 100vw, 33vw"/></div>
     <div className="solution-feature-shade" aria-hidden="true"/>
     <div className="solution-feature-top"><span>{item.number} / {item.short.toUpperCase()}</span><ArrowBadge/></div>
     <div className="solution-feature-bottom"><h3>{item.title}</h3><span>Explore solution <ArrowUpRight size={15}/></span></div>
@@ -111,9 +110,9 @@ export function HomePage(){
 export function SolutionsPage(){
   return <MotionContainer>
     <section className="inner-hero shell"><Eyebrow section="OUR EXPERTISE" label="EQUIPMENT & INFRASTRUCTURE"/><h1>Solutions for<br/><em>every care setting.</em></h1><div className="inner-hero-foot"><p>From specialized medical equipment to facility infrastructure, explore the areas in which OrbitHS supports healthcare providers.</p><span>08 SOLUTION AREAS <ArrowDownRight size={22}/></span></div></section>
-    <div className="inner-banner shell" data-reveal><ResponsiveImage src={images.radiology} alt="A radiology imaging system in a modern clinical room"/></div>
+    <div className="inner-banner shell" data-reveal><ResponsiveImage src={images.operatingRoom} alt="Medical equipment supporting a surgical team in an operating room" sizes="100vw"/></div>
     <section className="detail-catalog shell section-block"><Eyebrow section="01 / 02" label="OUR AREAS OF EXPERTISE"/><div className="detail-list">
-      {solutions.map((item,index)=><article className={'catalog-item '+(index%2?'catalog-right':'')} key={item.id} id={item.id} data-reveal><div className="catalog-img"><ResponsiveImage src={item.image} alt={item.alt}/><span>{item.number} / 08</span></div><div className="catalog-copy"><span className="small-kicker">{item.short.toUpperCase()}</span><h2>{item.title}</h2><p>{item.description}</p><TextLink to="/contact">Ask about this solution</TextLink></div></article>)}
+      {solutions.map((item,index)=><article className={'catalog-item '+(index%2?'catalog-right':'')} key={item.id} id={item.id} data-reveal><div className={'catalog-img '+(Number(item.number)>3?'equipment-image':'')}><ResponsiveImage src={item.image} alt={item.alt}/><span>{item.number} / 08</span></div><div className="catalog-copy"><span className="small-kicker">{item.short.toUpperCase()}</span><h2>{item.title}</h2><p>{item.description}</p><TextLink to="/contact">Ask about this solution</TextLink></div></article>)}
     </div><p className="caution-copy">Please contact OrbitHS for current product availability and specifications. Images are illustrative of service categories and do not represent confirmed stock or installations.</p></section>
     <CallToAction/>
   </MotionContainer>;
@@ -122,7 +121,7 @@ export function SolutionsPage(){
 export function AboutPage(){
   return <MotionContainer>
     <section className="inner-hero shell"><Eyebrow section="OUR COMPANY" label="PURPOSE IN EVERY DETAIL"/><h1>Behind every solution,<br/><em>people come first.</em></h1><div className="inner-hero-foot"><p>We work alongside public and private healthcare facilities to help turn important needs into practical results.</p><span>DISCOVER ORBITHS <ArrowDownRight size={22}/></span></div></section>
-    <div className="about-visual shell" data-reveal><div className="about-visual-main"><ResponsiveImage src={images.hero} alt="Modern medical imaging equipment in a clinical facility" /></div><div className="about-visual-sub"><ResponsiveImage src={images.microscope} alt="Laboratory research equipment close-up" /></div></div>
+    <div className="about-visual shell" data-reveal><div className="about-visual-main"><ResponsiveImage src={images.companyTraining} alt="Orbit team members at B Medical Systems, from the company training gallery" /></div><div className="about-visual-sub"><ResponsiveImage src={images.laboratoryTeam} alt="A laboratory technician examining a sample through a microscope; illustrative photography" /></div></div>
     <section className="section-block about-statement shell"><Eyebrow section="01 / 02" label="WHO WE ARE"/><div className="about-statement-grid"><h2 className="display-heading" data-reveal>We see the<br/><span className="muted">whole picture.</span></h2><div data-reveal><p>Orbit Health Solutions PLC specializes in customizable solutions for public and private health facilities in Ethiopia.</p><p>We assist clients with project identification and planning, project management, supply of equipment, installation and commissioning, training, and technical support.</p><TextLink to="/solutions">Explore our expertise</TextLink></div></div></section>
     <section className="section-block about-capabilities"><div className="shell"><Eyebrow section="02 / 02" label="WHAT WE DO"/><h2 className="display-heading" data-reveal>Every step is part<br/>of the <span className="muted">solution.</span></h2><div className="capability-list">{capabilities.map((cap,i)=><div key={cap} data-reveal><span>{String(i+1).padStart(2,'0')}</span><h3>{cap}</h3><MoveUpRight size={24} strokeWidth={1.3}/></div>)}</div></div></section>
     <CallToAction/>

@@ -3,7 +3,7 @@ import { Link, NavLink, useLocation } from 'react-router-dom';
 import { ArrowDown, ArrowRight, ArrowUpRight, Menu, X } from 'lucide-react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { images } from './content';
+import imageMetadata from './image-metadata.json';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -87,9 +87,13 @@ export function ButtonLink({to,children,kind='lime'}:{to:string,children:React.R
   return <Link to={to} className={'button-link button-'+kind}><span>{children}</span><span className="button-arrow"><ArrowUpRight size={19}/></span></Link>;
 }
 
-export function ResponsiveImage({src,alt,className='',eager=false}: {src:string,alt:string,className?:string,eager?:boolean}) {
-  const [source,setSource]=useState(src);
-  return <img className={className} src={source} alt={alt} loading={eager?'eager':'lazy'} decoding="async" onError={()=>{if(source!==images.radiology)setSource(images.radiology)}} />;
+export function ResponsiveImage({src,alt,className='',eager=false,sizes='(max-width: 700px) 100vw, 50vw'}: {src:string,alt:string,className?:string,eager?:boolean,sizes?:string}) {
+  const [failedSource,setFailedSource]=useState<string | null>(null);
+  const key = src.split('/').pop()?.replace('.webp','') as keyof typeof imageMetadata;
+  const metadata = imageMetadata[key];
+  if (failedSource === src) return <span className={'image-unavailable '+className} role="img" aria-label={alt}>Image unavailable</span>;
+  const srcSet = metadata?.responsive ? `${src.replace('.webp','-640.webp')} 640w, ${src} ${metadata.width}w` : undefined;
+  return <img className={className} src={src} srcSet={srcSet} sizes={srcSet ? sizes : undefined} width={metadata?.width} height={metadata?.height} alt={alt} loading={eager?'eager':'lazy'} fetchPriority={eager?'high':undefined} decoding="async" onError={()=>setFailedSource(src)} />;
 }
 
 export function CallToAction() {

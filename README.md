@@ -37,32 +37,30 @@ Node.js 22 is recommended.
 
 ## Publishing to GitHub Pages
 
-This React site **must deploy its compiled `dist/` files**, not raw `src/` code or `index.html` from the repository root.
+The source HTML template is `app/index.html`; React code remains in `src/` and original optimized images are in `public/images/`. Vite builds to `dist/`.
 
-1. Open [Repository settings → Pages](https://github.com/yohannesmulugeta/orbiths/settings/pages).
-2. Under **Build and deployment**, set **Source** to **GitHub Actions**. Do not leave it on `Deploy from a branch`.
-3. Merge the React pull request to `main`.
-4. The workflow `.github/workflows/pages.yml` automatically installs dependencies, runs source checks, builds with `GITHUB_PAGES=true` and deploys `dist/`.
-5. Confirm the successful **Build and deploy OrbitHS (React)** workflow on the [Actions tab](https://github.com/yohannesmulugeta/orbiths/actions).
-6. Open `https://yohannesmulugeta.github.io/orbiths/`.
+The repository root also contains the compiled site for the existing GitHub Pages `main` / root configuration. This lets the redesign publish without changing Pages settings. Never replace the root `index.html` with unbuilt JSX.
 
-`vite.config.ts` sets base to `/orbiths/` for Pages. Navigation uses hash routing (`#/solutions`, `#/about`) to avoid GitHub Pages 404s on hard refresh. A production domain migration can later use URL-based routing/SSG if required for SEO.
+```bash
+npm ci
+npm test
+GITHUB_PAGES=true npm run build
+npm run stage:pages
+```
 
-**The GitHub Pages URL is a staging/review website**. Do not point `orbiths.com` to this site before the company approves the content and imagery.
+Commit the changed source **and staged compiled files**, then merge to main. If Pages is later switched to GitHub Actions, the included workflow publishes `dist/` directly. Local development uses `npm run dev`.
 
-## Image policy
+The review site is https://yohannesmulugeta.github.io/orbiths/ . Hash routing keeps navigation and refreshes reliable. The current WordPress domain is unaffected.
 
-- High-resolution radiology and microscope imagery uses selected **free Unsplash photos**: [medical scanner](https://unsplash.com/fr/photos/une-grande-machine-blanche-QTP8UKW_PgI) and [medical microscope](https://unsplash.com/photos/a-microscope-being-used-to-examine-a-substance-YDLlT9DNOI4).
-- Category photos include media from the existing `orbiths.com/wp-content/uploads/` site.
-- The live website currently loads some images from these external hosts. **Prior to replacing old WordPress hosting, obtain approval, optimize the originals and migrate them to `public/images` or an approved CDN.** This also avoids broken remote media if the old server is retired.
-- Illustrative equipment photography **must not be presented as installed systems, actual inventory or company projects** unless OrbitHS confirms that claim.
-- The orbital brand mark is a **provisional design**, not the company's official logo.
+## Images and next improvements
+
+All in-page images are local WebP files. Larger photos have 640px variants; the hero is prioritized and other images load lazily. See `IMPROVEMENT-PLAN.md` for sources, completed refinements and the next design/content priorities. Illustrative medical photography must not be labeled as Orbit installations or actual inventory. Some product references still need higher-resolution originals. The orbital mark remains provisional.
 
 ## Production checklist
 
 - [ ] Confirm the company's approved logo, team, solution descriptions, addresses, phone numbers and business proof.
 - [ ] Approve visuals, photo licensing and the distinction between stock/reference imagery and company project photos.
-- [ ] Localize and optimize images (WebP/AVIF, responsive sizes, lazy loading).
+- [x] Localize and optimize images (WebP, responsive sizes, lazy loading).
 - [ ] Add a secured contact workflow when an approved delivery address/provider is confirmed.
 - [ ] Review accessibility, keyboard navigation, mobile and desktop design in the actual deployed site.
 - [ ] If/when moving to the main domain, plan old URL redirects, canonical URLs, SEO, analytics and a rollback path.

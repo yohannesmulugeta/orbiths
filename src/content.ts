@@ -9,20 +9,25 @@ export type Service = {
   objectPosition?: string;
 };
 
+const asset = (name: string) => `${import.meta.env.BASE_URL}images/${name}.webp`;
+
 export const images = {
-  hero: 'https://images.unsplash.com/photo-1666214280352-db292c05fd80?auto=format&fit=crop&w=2000&q=83',
-  microscope: 'https://images.unsplash.com/photo-1738778228323-f93bba079c7e?auto=format&fit=crop&w=1200&q=82',
-  radiology: 'https://images.unsplash.com/photo-1666214280352-db292c05fd80?auto=format&fit=crop&w=1200&q=80',
-  mobileClinic: 'https://orbiths.com/wp-content/uploads/2021/03/Mobile_clinic2.png',
-  ventilator: 'https://orbiths.com/wp-content/uploads/2021/03/ventilator2.png',
-  medicalGas: 'https://orbiths.com/wp-content/uploads/2021/03/medicalgas.jpg',
-  coldChain: 'https://orbiths.com/wp-content/uploads/2021/03/Coldchainbloodchain2-orbiths.jpg',
-  infectionControl: 'https://orbiths.com/wp-content/uploads/2021/03/medical-waste-incinerators-orbit-1.jpeg',
-  consumables: 'https://orbiths.com/wp-content/uploads/2021/03/Patient-circuit-orbit1.jpg',
+  hero: asset('scanner'),
+  microscope: asset('microscope'),
+  laboratoryTeam: asset('lab-team'),
+  radiology: asset('scanner'),
+  operatingRoom: asset('operating-room'),
+  companyTraining: asset('training'),
+  mobileClinic: asset('mobile-clinic'),
+  ventilator: asset('operating-room'),
+  medicalGas: asset('medical-gas'),
+  coldChain: asset('cold-chain'),
+  infectionControl: asset('infection-control'),
+  consumables: asset('consumables'),
 };
 
 export const solutions: Service[] = [
-  { id:'critical-care',number:'01',title:'ICU & Operating Room Equipment',short:'Critical care & surgery',description:'Equipment solutions to support intensive care and surgical environments.',image:images.ventilator,alt:'Medical ventilator equipment' },
+  { id:'critical-care',number:'01',title:'ICU & Operating Room Equipment',short:'Critical care & surgery',description:'Equipment solutions to support intensive care and surgical environments.',image:images.ventilator,alt:'Operating room with surgical lighting, patient monitors and a clinical team' },
   { id:'laboratory',number:'02',title:'Laboratory Equipment',short:'Laboratory & research',description:'Scientific, research and medical laboratory equipment for diagnostics and day-to-day operations.',image:images.microscope,alt:'Precision microscope in a medical laboratory' },
   { id:'radiology',number:'03',title:'Advanced Radiology Systems',short:'Imaging & radiology',description:'Medical imaging systems selected for the specific requirements of each facility.',image:images.radiology,alt:'Modern medical scanner in a diagnostic suite' },
   { id:'cold-chain',number:'04',title:'Cold Chain & Blood Chain Management',short:'Temperature-sensitive care',description:'Solutions for temperature-controlled storage and blood chain management.',image:images.coldChain,alt:'Medical cold-chain equipment' },
