@@ -1,0 +1,145 @@
+import { Link } from 'react-router-dom';
+import { ArrowDownRight, ArrowRight, ArrowUpRight, MapPin, Phone, Clock3, MoveUpRight, Plus } from 'lucide-react';
+import { approach, capabilities, images, solutions, type Service } from './content';
+import { ArrowBadge, ButtonLink, CallToAction, Eyebrow, MotionContainer, ResponsiveImage, ScrollCue, TextLink } from './components';
+
+function Hero() {
+  return <section className="hero-section shell" aria-labelledby="hero-title">
+    <div className="hero-panel">
+      <div className="hero-photo" aria-hidden="true"><ResponsiveImage eager src={images.hero} alt=""/></div>
+      <div className="hero-shade" aria-hidden="true"/>
+      <div className="hero-biomorph" aria-hidden="true"><span className="biomorph-one"/><span className="biomorph-two"/><span className="biomorph-three"/></div>
+      <div className="hero-inner">
+        <div className="hero-kicker"><span className="pulse-dot"/> HEALTHCARE EQUIPMENT & INFRASTRUCTURE</div>
+        <h1 id="hero-title">Technology<br/>for <span>better</span><br/>care.</h1>
+        <div className="hero-copy"><p>From medical technology to complete facility solutions — building stronger healthcare environments across Ethiopia.</p><div className="hero-buttons"><ButtonLink to="/solutions">Explore our solutions</ButtonLink><TextLink to="/about" light>Discover OrbitHS</TextLink></div></div>
+      </div>
+      <div className="hero-base"><span>01 — BETTER CARE, BUILT TOGETHER</span><span>ADDIS ABABA · ETHIOPIA</span><ScrollCue/></div>
+    </div>
+  </section>;
+}
+
+function Intro() {
+  return <section className="section-block intro-section shell" id="discover">
+    <Eyebrow section="01 / 05" label="A MORE CONNECTED APPROACH TO HEALTHCARE"/>
+    <div className="intro-main">
+      <h2 className="display-heading" data-reveal>Progress in healthcare<br/>takes <span className="muted">more than equipment.</span></h2>
+      <div className="intro-aside" data-reveal><p>It takes thoughtful planning, technical understanding and a partner who sees the bigger picture.</p><p>Orbit Health Solutions helps public and private health facilities turn complex equipment and infrastructure needs into workable solutions.</p><TextLink to="/about">Get to know our company</TextLink></div>
+    </div>
+    <div className="intro-points" data-reveal>
+      <div><span className="intro-point-icon">↗</span><h3>Purpose-led</h3><p>Solutions shaped around the needs of each healthcare facility.</p></div>
+      <div><span className="intro-point-icon">◎</span><h3>End-to-end</h3><p>From planning and equipment supply to installation and commissioning.</p></div>
+      <div><span className="intro-point-icon">✳</span><h3>Support-minded</h3><p>Training and technical assistance to help teams put equipment to work.</p></div>
+    </div>
+  </section>;
+}
+
+function FeatureGallery(){
+  return <section className="visual-break shell" aria-label="Healthcare technology in focus" data-reveal>
+    <div className="visual-main">
+      <ResponsiveImage src={images.radiology} alt="Modern radiology scanner in a hospital diagnostic suite" />
+      <div className="visual-caption"><span>THE TECHNOLOGY BEHIND CARE</span><span className="mini-plus">✳</span></div>
+    </div>
+    <div className="visual-side">
+      <div className="visual-side-picture"><ResponsiveImage src={images.microscope} alt="Microscope close-up in a medical laboratory" /></div>
+      <div className="visual-side-caption"><p>Care depends on what happens behind the scenes.</p><ArrowDownRight size={32} strokeWidth={1.25}/></div>
+    </div>
+  </section>;
+}
+
+function SolutionCard({item,index}:{item:Service,index:number}){
+  return <Link className={'solution-feature solution-feature-'+index} to="/solutions" data-reveal>
+    <div className="solution-feature-image"><ResponsiveImage src={index===0?images.microscope:index===1?images.radiology:item.image} alt={item.alt}/></div>
+    <div className="solution-feature-shade" aria-hidden="true"/>
+    <div className="solution-feature-top"><span>{item.number} / {item.short.toUpperCase()}</span><ArrowBadge/></div>
+    <div className="solution-feature-bottom"><h3>{item.title}</h3><span>Explore solution <ArrowUpRight size={15}/></span></div>
+  </Link>;
+}
+
+function SolutionsPreview() {
+  return <section className="section-block solutions-preview">
+    <div className="shell">
+      <Eyebrow section="02 / 05" label="MEDICAL EQUIPMENT & FACILITY SOLUTIONS"/>
+      <div className="section-heading-line" data-reveal>
+        <h2 className="display-heading">Designed for the<br/><span className="muted">world of care.</span></h2>
+        <p>Different facilities. Different challenges. One connected approach to finding the right equipment and infrastructure.</p>
+      </div>
+      <div className="solution-feature-grid">
+        <SolutionCard item={solutions[1]} index={0}/>
+        <SolutionCard item={solutions[2]} index={1}/>
+        <SolutionCard item={solutions[0]} index={2}/>
+      </div>
+      <div className="solutions-index" data-reveal>
+        {solutions.slice(3).map(s=><Link to="/solutions" key={s.id}><span>{s.number}</span><strong>{s.title}</strong><ArrowUpRight size={20} strokeWidth={1.5}/></Link>)}
+      </div>
+      <div className="view-all-wrap"><ButtonLink to="/solutions" kind="dark">View all eight solution areas</ButtonLink></div>
+    </div>
+  </section>;
+}
+
+function Approach() {
+  return <section className="approach-section">
+    <div className="shell">
+      <Eyebrow section="03 / 05" label="HOW WE WORK" light/>
+      <div className="approach-heading" data-reveal><h2 className="display-heading">One connected<br/><em>approach.</em></h2><p>From the first conversation through implementation and beyond, our services connect the important steps in each healthcare project.</p></div>
+      <div className="approach-rows">
+        {approach.map(step=><div key={step.number} className="approach-row" data-reveal><span>{step.number}</span><div><h3>{step.title}</h3><p>{step.copy}</p></div><Plus size={22} strokeWidth={1.2}/></div>)}
+      </div>
+      <div className="approach-cta" data-reveal><ButtonLink to="/contact">Discuss your project</ButtonLink></div>
+    </div>
+  </section>;
+}
+
+function Story() {
+  return <section className="section-block story-section shell">
+    <Eyebrow section="04 / 05" label="A WIDER VIEW OF HEALTHCARE"/>
+    <div className="story-grid">
+      <div className="story-left" data-reveal><div className="story-image"><ResponsiveImage src={images.mobileClinic} alt="Custom mobile healthcare clinic vehicle" /><div className="photo-marker">MOBILE CARE / 08</div></div><p className="image-caption">From established medical centers to mobile clinical services.</p></div>
+      <div className="story-content" data-reveal><div className="small-kicker">SOLUTIONS THAT GO FURTHER <span>↗</span></div><h2 className="display-heading">Healthcare doesn't<br/>stop at <span className="muted">four walls.</span></h2><p>Every setting deserves a solution made for its circumstances. Our areas of expertise extend from intensive care to diagnostic equipment and custom-built mobile clinics.</p><TextLink to="/solutions">Discover the possibilities</TextLink></div>
+    </div>
+  </section>;
+}
+
+function OutroBand(){
+  return <section className="outro-band shell" data-reveal><div className="outro-line"><span>05 / 05</span><span>THOUGHTFUL HEALTHCARE DELIVERY</span></div><div className="outro-body"><p>Our focus is simple.</p><h2>Making essential<br/>healthcare <em>work.</em></h2><ArrowRight size={64} strokeWidth={1}/></div></section>;
+}
+
+export function HomePage(){
+  return <MotionContainer><Hero/><Intro/><FeatureGallery/><SolutionsPreview/><Approach/><Story/><OutroBand/><CallToAction/></MotionContainer>;
+}
+
+export function SolutionsPage(){
+  return <MotionContainer>
+    <section className="inner-hero shell"><Eyebrow section="OUR EXPERTISE" label="EQUIPMENT & INFRASTRUCTURE"/><h1>Solutions for<br/><em>every care setting.</em></h1><div className="inner-hero-foot"><p>From specialized medical equipment to facility infrastructure, explore the areas in which OrbitHS supports healthcare providers.</p><span>08 SOLUTION AREAS <ArrowDownRight size={22}/></span></div></section>
+    <div className="inner-banner shell" data-reveal><ResponsiveImage src={images.radiology} alt="A radiology imaging system in a modern clinical room"/></div>
+    <section className="detail-catalog shell section-block"><Eyebrow section="01 / 02" label="OUR AREAS OF EXPERTISE"/><div className="detail-list">
+      {solutions.map((item,index)=><article className={'catalog-item '+(index%2?'catalog-right':'')} key={item.id} id={item.id} data-reveal><div className="catalog-img"><ResponsiveImage src={item.image} alt={item.alt}/><span>{item.number} / 08</span></div><div className="catalog-copy"><span className="small-kicker">{item.short.toUpperCase()}</span><h2>{item.title}</h2><p>{item.description}</p><TextLink to="/contact">Ask about this solution</TextLink></div></article>)}
+    </div><p className="caution-copy">Please contact OrbitHS for current product availability and specifications. Images are illustrative of service categories and do not represent confirmed stock or installations.</p></section>
+    <CallToAction/>
+  </MotionContainer>;
+}
+
+export function AboutPage(){
+  return <MotionContainer>
+    <section className="inner-hero shell"><Eyebrow section="OUR COMPANY" label="PURPOSE IN EVERY DETAIL"/><h1>Behind every solution,<br/><em>people come first.</em></h1><div className="inner-hero-foot"><p>We work alongside public and private healthcare facilities to help turn important needs into practical results.</p><span>DISCOVER ORBITHS <ArrowDownRight size={22}/></span></div></section>
+    <div className="about-visual shell" data-reveal><div className="about-visual-main"><ResponsiveImage src={images.hero} alt="Modern medical imaging equipment in a clinical facility" /></div><div className="about-visual-sub"><ResponsiveImage src={images.microscope} alt="Laboratory research equipment close-up" /></div></div>
+    <section className="section-block about-statement shell"><Eyebrow section="01 / 02" label="WHO WE ARE"/><div className="about-statement-grid"><h2 className="display-heading" data-reveal>We see the<br/><span className="muted">whole picture.</span></h2><div data-reveal><p>Orbit Health Solutions PLC specializes in customizable solutions for public and private health facilities in Ethiopia.</p><p>We assist clients with project identification and planning, project management, supply of equipment, installation and commissioning, training, and technical support.</p><TextLink to="/solutions">Explore our expertise</TextLink></div></div></section>
+    <section className="section-block about-capabilities"><div className="shell"><Eyebrow section="02 / 02" label="WHAT WE DO"/><h2 className="display-heading" data-reveal>Every step is part<br/>of the <span className="muted">solution.</span></h2><div className="capability-list">{capabilities.map((cap,i)=><div key={cap} data-reveal><span>{String(i+1).padStart(2,'0')}</span><h3>{cap}</h3><MoveUpRight size={24} strokeWidth={1.3}/></div>)}</div></div></section>
+    <CallToAction/>
+  </MotionContainer>;
+}
+
+export function ContactPage(){
+  return <MotionContainer>
+    <section className="inner-hero shell contact-hero"><Eyebrow section="LET'S CONNECT" label="WE'RE HERE TO TALK"/><h1>A conversation<br/>can <em>move care forward.</em></h1><div className="inner-hero-foot"><p>Whether you're equipping a facility or exploring new possibilities, get in touch with OrbitHS in Addis Ababa.</p><span>LET'S TALK <ArrowDownRight size={22}/></span></div></section>
+    <section className="contact-area shell">
+      <div className="contact-details">
+        <div className="contact-item" data-reveal><span><Phone size={20}/> PHONE</span><div><a href="tel:+251116507335">+251 11 650 7335 <ArrowUpRight size={22}/></a><a href="tel:+251116507287">+251 11 650 7287 <ArrowUpRight size={22}/></a></div></div>
+        <div className="contact-item" data-reveal><span><MapPin size={20}/> OUR OFFICE</span><div><p>TK Building, 6th Floor<br/>Suites 601, 602 & 603<br/>Bole Sub-City, Addis Ababa<br/>Ethiopia</p><a className="office-map" href="https://www.google.com/maps/search/?api=1&query=TK+Building+Bole+Addis+Ababa" target="_blank" rel="noreferrer">Open map <ArrowUpRight size={17}/></a></div></div>
+        <div className="contact-item" data-reveal><span><Clock3 size={20}/> OFFICE HOURS</span><div><p>Monday – Friday<br/>8:30 AM – 5:30 PM</p></div></div>
+      </div>
+      <aside className="contact-aside" data-reveal><span className="pulse-dot"/> HERE FOR YOUR NEXT PROJECT<h2>Let's find the<br/><em>right solution.</em></h2><p>Call our team to discuss your requirements and the best next steps for your healthcare project.</p><a className="contact-call" href="tel:+251116507335">Call OrbitHS <ArrowUpRight size={21}/></a></aside>
+    </section>
+    <p className="contact-fineprint shell">Office details are carried over from the previous OrbitHS website and require confirmation before the final domain launch. Online enquiry forms will follow once an approved mailbox and delivery service are configured.</p>
+  </MotionContainer>;
+}
