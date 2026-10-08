@@ -1,4 +1,4 @@
-import { useEffect, useLayoutEffect, useRef, useState, type PropsWithChildren } from 'react';
+import { useEffect, useLayoutEffect, useRef, useState, type PropsWithChildren, type ReactNode } from 'react';
 import { Link, NavLink, useLocation } from 'react-router-dom';
 import { ArrowDown, ArrowRight, ArrowUpRight, Menu, X } from 'lucide-react';
 import gsap from 'gsap';
@@ -9,7 +9,7 @@ gsap.registerPlugin(ScrollTrigger);
 
 export function ScrollToTop() {
   const { pathname } = useLocation();
-  useEffect(() => { window.scrollTo({top:0,behavior:'instant'}); }, [pathname]);
+  useEffect(() => { window.scrollTo({top:0,behavior:'auto'}); }, [pathname]);
   return null;
 }
 
@@ -79,7 +79,7 @@ export function Eyebrow({section,label,light=false}:{section:string,label:string
   return <div className={'eyebrow '+(light?'eyebrow-light':'')}><span className="number-tag">{section}</span><span className="eyebrow-rule"/><span>{label}</span></div>;
 }
 
-export function TextLink({to,children,light=false}:{to:string,children:React.ReactNode,light?:boolean}) {
+export function TextLink({to,children,light=false}:{to:string,children:ReactNode,light?:boolean}) {
   return <Link className={'underlink '+(light?'underlink-light':'')} to={to}>{children}<ArrowUpRight size={18} strokeWidth={1.6}/></Link>;
 }
 
