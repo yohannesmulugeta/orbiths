@@ -12,6 +12,17 @@ An original, responsive multi-page website for **Orbit Health Solutions PLC**, d
 - `main.js` — accessible mobile navigation and progressive scroll animations.
 - `assets/orbit-mark.svg` — **provisional** conceptual mark; replace with the company's approved logo before launch.
 
+## Publish on GitHub Pages
+
+This is a static website with no build step. The publishing source is the `main` branch at `/(root)`.
+
+1. Open **https://github.com/yohannesmulugeta/orbiths/settings/pages** while logged in as a repository admin.
+2. In **Build and deployment**, choose **Source: Deploy from a branch**.
+3. Choose **Branch: main** and **Folder: /(root)**, then click **Save**.
+4. After GitHub finishes building, the site will be available at **https://yohannesmulugeta.github.io/orbiths/**.
+
+Updates committed to `main` will automatically redeploy. The GitHub Pages URL is independent of the existing `orbiths.com` domain and does not modify its DNS.
+
 ## Run locally
 
 No dependencies or build tools are required. From the repository root:
