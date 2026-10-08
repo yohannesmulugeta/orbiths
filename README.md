@@ -43,7 +43,7 @@ Company offerings, office information and numbers are based on the current publi
 2. **Official brand assets:** replace the provisional mark with the approved logo, fonts/color specifications if they differ.
 3. **Enquiry workflow:** the site uses working office telephone links now. Add and test a server-side contact form only after OrbitHS confirms an inbox and delivery provider. Do not claim submissions work without backend confirmation.
 4. **Review:** verify copy, page content, contact details, and old URL redirect mapping with company stakeholders.
-5. **Deployment:** the existing production site and DNS remain untouched. Review and merge the branch, then publish to a preview hostname and test before a planned domain cutover.
+5. **Deployment:** the redesign has been merged to `main`. Enable GitHub Pages under Settings → Pages → Deploy from a branch → `main` / `(root)` to make the preview public. Keep existing production DNS untouched until a separately approved cutover.
 6. **Search:** when final pages/URLs are approved, create a sitemap, robots file, canonical URLs, social share image and appropriate schema; verify analytics and Search Console.
 
 ## Design and development principles
