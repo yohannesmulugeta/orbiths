@@ -16,7 +16,13 @@ A cinematic, image-led redesign of the OrbitHS website, inspired by the visual q
 1. Home — full-bleed, photographic medical hero; company introduction; editorial photo collage; eight equipment categories; delivery timeline; mobile clinics story; inquiry CTA.
 2. Solutions — detailed overview of all eight equipment/infrastructure areas from the existing company site.
 3. Company — company introduction and its six published service areas.
-4. Contact — phone links, office location and hours.
+4. Contact — phone links, office location, hours and a local enquiry download.
+5. Services — all six published services.
+6. Partners — all 30 original partner logos, including recovered links.
+7. Team — four management profiles and two original portraits.
+8. Gallery — all 130 unique original photographs, with filters and accessible viewing.
+
+See `CONTENT-MIGRATION.md` for the original-site audit and source details.
 
 ## Run locally
 
@@ -54,7 +60,7 @@ The review site is https://yohannesmulugeta.github.io/orbiths/ . Hash routing ke
 
 ## Images and next improvements
 
-All in-page images are local WebP files. Larger photos have 640px variants; the hero is prioritized and other images load lazily. See `IMPROVEMENT-PLAN.md` for sources, completed refinements and the next design/content priorities. Illustrative medical photography must not be labeled as Orbit installations or actual inventory. Some product references still need higher-resolution originals. The orbital mark remains provisional.
+All in-page images are local WebP files. Larger photos have 640px variants; the hero is prioritized and other images load lazily. See `IMPROVEMENT-PLAN.md` for sources, completed refinements and the next design/content priorities. Illustrative medical photography must not be labeled as Orbit installations or actual inventory. Some product references still need higher-resolution originals. The supplied official Orbit logo is used in the header and footer. The brand palette is blue `#0397D6`, lime `#C1D72E` and white, with darker blue tones for accessible text and buttons.
 
 ## Production checklist
 

@@ -48,3 +48,13 @@ export const capabilities = [
   'Project identification & conceptualization','Project management','Supply of equipment',
   'Installation & commissioning','Training','Technical support'
 ];
+
+
+export const services = [
+  {title:'Project Identification & Conceptualization',copy:'Define the needs of a healthcare facility and develop a practical project concept and plan.'},
+  {title:'Project Management',copy:'Coordinate the steps of delivery so that healthcare projects are tailored to local needs.'},
+  {title:'Supply of Equipment',copy:'Select and supply technically compliant medical equipment and products for each project.'},
+  {title:'Installation & Commissioning',copy:'Bring equipment into service through installation and commissioning.'},
+  {title:'Training',copy:'Help healthcare and technical teams understand the equipment they use.'},
+  {title:'Technical Support',copy:'Provide technical assistance after installation to support continued equipment use.'},
+];

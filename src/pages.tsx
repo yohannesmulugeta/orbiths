@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom';
 import { ArrowDownRight, ArrowRight, ArrowUpRight, MapPin, Phone, Clock3, MoveUpRight, Plus } from 'lucide-react';
 import { approach, capabilities, images, solutions, type Service } from './content';
 import { ArrowBadge, ButtonLink, CallToAction, Eyebrow, MotionContainer, ResponsiveImage, ScrollCue, TextLink } from './components';
+import { CompanyPreview, EnquiryDraft } from './archive-pages';
 
 function Hero() {
   return <section className="hero-section shell" aria-labelledby="hero-title">
@@ -104,7 +105,7 @@ function OutroBand(){
 }
 
 export function HomePage(){
-  return <MotionContainer><Hero/><Intro/><FeatureGallery/><SolutionsPreview/><Approach/><Story/><OutroBand/><CallToAction/></MotionContainer>;
+  return <MotionContainer><Hero/><Intro/><FeatureGallery/><SolutionsPreview/><Approach/><Story/><CompanyPreview/><OutroBand/><CallToAction/></MotionContainer>;
 }
 
 export function SolutionsPage(){
@@ -122,7 +123,7 @@ export function AboutPage(){
   return <MotionContainer>
     <section className="inner-hero shell"><Eyebrow section="OUR COMPANY" label="PURPOSE IN EVERY DETAIL"/><h1>Behind every solution,<br/><em>people come first.</em></h1><div className="inner-hero-foot"><p>We work alongside public and private healthcare facilities to help turn important needs into practical results.</p><span>DISCOVER ORBITHS <ArrowDownRight size={22}/></span></div></section>
     <div className="about-visual shell" data-reveal><div className="about-visual-main"><ResponsiveImage src={images.companyTraining} alt="Orbit team members at B Medical Systems, from the company training gallery" /></div><div className="about-visual-sub"><ResponsiveImage src={images.laboratoryTeam} alt="A laboratory technician examining a sample through a microscope; illustrative photography" /></div></div>
-    <section className="section-block about-statement shell"><Eyebrow section="01 / 02" label="WHO WE ARE"/><div className="about-statement-grid"><h2 className="display-heading" data-reveal>We see the<br/><span className="muted">whole picture.</span></h2><div data-reveal><p>Orbit Health Solutions PLC specializes in customizable solutions for public and private health facilities in Ethiopia.</p><p>We assist clients with project identification and planning, project management, supply of equipment, installation and commissioning, training, and technical support.</p><TextLink to="/solutions">Explore our expertise</TextLink></div></div></section>
+    <section className="section-block about-statement shell"><Eyebrow section="01 / 02" label="WHO WE ARE"/><div className="about-statement-grid"><h2 className="display-heading" data-reveal>We see the<br/><span className="muted">whole picture.</span></h2><div data-reveal><p>Orbit Health Solutions PLC specializes in customizable solutions for public and private health facilities in Ethiopia.</p><p>We assist clients with project identification and planning, project management, supply of equipment, installation and commissioning, training, and technical support.</p><p>Our team is committed to quality management standards. With a strong understanding of the Ethiopian market and experience in public healthcare projects, we work to make each project efficient, cost effective and suited to local needs.</p><TextLink to="/team">Meet our management team</TextLink></div></div></section>
     <section className="section-block about-capabilities"><div className="shell"><Eyebrow section="02 / 02" label="WHAT WE DO"/><h2 className="display-heading" data-reveal>Every step is part<br/>of the <span className="muted">solution.</span></h2><div className="capability-list">{capabilities.map((cap,i)=><div key={cap} data-reveal><span>{String(i+1).padStart(2,'0')}</span><h3>{cap}</h3><MoveUpRight size={24} strokeWidth={1.3}/></div>)}</div></div></section>
     <CallToAction/>
   </MotionContainer>;
@@ -139,6 +140,6 @@ export function ContactPage(){
       </div>
       <aside className="contact-aside" data-reveal><span className="pulse-dot"/> HERE FOR YOUR NEXT PROJECT<h2>Let's find the<br/><em>right solution.</em></h2><p>Call our team to discuss your requirements and the best next steps for your healthcare project.</p><a className="contact-call" href="tel:+251116507335">Call OrbitHS <ArrowUpRight size={21}/></a></aside>
     </section>
-    <p className="contact-fineprint shell">Office details are carried over from the previous OrbitHS website and require confirmation before the final domain launch. Online enquiry forms will follow once an approved mailbox and delivery service are configured.</p>
+    <EnquiryDraft/>
   </MotionContainer>;
 }

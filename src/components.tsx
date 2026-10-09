@@ -32,18 +32,15 @@ export function MotionContainer({ children, className = '' }: PropsWithChildren<
 
 export function OrbitMark({ light = false }: {light?:boolean}) {
   return <Link to="/" className={'logo-lockup '+(light?'logo-light':'')} aria-label="Orbit Health Solutions, homepage">
-    <svg className="logo-icon" viewBox="0 0 44 44" fill="none" aria-hidden="true">
-      <ellipse cx="22" cy="22" rx="18" ry="10.5" transform="rotate(-37 22 22)" stroke="currentColor" strokeWidth="2.2" />
-      <ellipse cx="22" cy="22" rx="18" ry="10.5" transform="rotate(53 22 22)" stroke="currentColor" strokeWidth="2.2" />
-      <circle cx="22" cy="22" r="3.7" fill="currentColor" />
-    </svg>
-    <span className="logo-text"><strong>orbit<span>hs</span></strong><small>HEALTH SOLUTIONS</small></span>
+    <img className="logo-image" src={`${import.meta.env.BASE_URL}orbit-logo.png`} alt="Orbit Health Solutions" width="305" height="113" decoding="async" />
   </Link>;
 }
 
 const navItems = [
   {to:'/',label:'Home',end:true},{to:'/solutions',label:'Solutions'},
-  {to:'/about',label:'Company'},{to:'/contact',label:'Contact'},
+  {to:'/services',label:'Services'},{to:'/partners',label:'Partners'},
+  {to:'/about',label:'Company'},{to:'/team',label:'Team'},
+  {to:'/gallery',label:'Gallery'},{to:'/contact',label:'Contact'},
 ];
 
 export function SiteHeader() {
@@ -110,7 +107,7 @@ export function SiteFooter() {
   return <footer className="site-footer"><div className="shell">
     <div className="footer-top">
       <div className="footer-intro"><OrbitMark/><p>Medical equipment. Healthcare infrastructure.<br/>Thoughtful solutions for better care.</p></div>
-      <div className="footer-nav"><div><span>EXPLORE</span><Link to="/">Home</Link><Link to="/solutions">Solutions</Link><Link to="/about">Company</Link></div><div><span>CONNECT</span><Link to="/contact">Contact</Link><a href="tel:+251116507335">+251 11 650 7335</a><a href="https://www.google.com/maps/search/?api=1&query=TK+Building+Addis+Ababa" target="_blank" rel="noreferrer">Find our office <ArrowUpRight size={13}/></a></div></div>
+      <div className="footer-nav"><div><span>EXPLORE</span><Link to="/">Home</Link><Link to="/solutions">Solutions</Link><Link to="/services">Services</Link><Link to="/partners">Partners</Link><Link to="/about">Company</Link><Link to="/team">Team</Link><Link to="/gallery">Gallery</Link></div><div><span>CONNECT</span><Link to="/contact">Contact</Link><a href="tel:+251116507335">+251 11 650 7335</a><a href="https://www.google.com/maps/search/?api=1&query=TK+Building+Addis+Ababa" target="_blank" rel="noreferrer">Find our office <ArrowUpRight size={13}/></a></div></div>
     </div>
     <div className="footer-base"><span>© {new Date().getFullYear()} ORBIT HEALTH SOLUTIONS PLC</span><span>DESIGNED WITH PURPOSE</span><a href="#top" onClick={(e)=>{e.preventDefault();window.scrollTo({top:0,behavior:'smooth'})}}>BACK TO TOP ↑</a></div>
   </div></footer>;

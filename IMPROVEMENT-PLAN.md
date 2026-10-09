@@ -9,9 +9,13 @@
 - Store all imagery locally as WebP, add 640px variants, image dimensions, lazy loading and hero priority.
 - Stop substituting a radiology photo if an unrelated image fails.
 
+- Apply the supplied official logo and blue/lime colors.
+- Restore all six services, 30 partner logos, four team profiles and 130 gallery photos.
+- Add gallery filters, load-more, keyboard photo viewing and a local enquiry download.
+
 ## Next design pass, in priority order
-1. **Identity and first impression:** obtain the official vector logo; refine headline widths, contrast, section spacing and mobile crops around the photography. Keep the large typography and restrained motion inspired by Integrated Biosciences, adapted to healthcare equipment.
-2. **Show the company's work:** curate the existing training and installation gallery; have Orbit confirm captions, dates, facility names and publication permission. Add 3–4 approved project stories with scope, equipment and support delivered. Do not invent counts or results.
+1. **Identity and first impression:** the supplied official logo and blue/lime palette are applied; request a vector original for sharper future exports and refine headline widths, contrast, section spacing and mobile crops around the photography. Keep the large typography and restrained motion inspired by Integrated Biosciences, adapted to healthcare equipment.
+2. **Show the company's work:** the complete original gallery is now restored; curate the strongest training and installation examples, and have Orbit confirm captions, dates, facility names and publication permission. Add 3–4 approved project stories with scope, equipment and support delivered. Do not invent counts or results.
 3. **Strengthen solution pages:** source original-resolution category photos from the company or authorized manufacturers, replacing the remaining small cold-chain, medical-gas, waste-treatment, consumables and mobile-clinic references. Add confirmed equipment options and downloadable brochures.
 4. **Make enquiries easier:** confirm the company mailbox and add secure enquiry delivery with a solution selector and clear receipt confirmation. The current phone links already work; do not show a false submission-success state.
 5. **Complete launch quality:** test actual mobile devices, keyboard navigation, image loading and slow connections; add approved business proof, SEO routes, sitemap, social preview and analytics before an orbiths.com domain cutover.
