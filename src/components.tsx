@@ -89,7 +89,8 @@ export function ResponsiveImage({src,alt,className='',eager=false,sizes='(max-wi
   const key = src.split('/').pop()?.replace('.webp','') as keyof typeof imageMetadata;
   const metadata = imageMetadata[key];
   if (failedSource === src) return <span className={'image-unavailable '+className} role="img" aria-label={alt}>Image unavailable</span>;
-  const srcSet = metadata?.responsive ? `${src.replace('.webp','-640.webp')} 640w, ${src} ${metadata.width}w` : undefined;
+  const variants: number[] = metadata && 'variants' in metadata ? metadata.variants : [640, metadata?.width ?? 640];
+  const srcSet = metadata?.responsive ? variants.map(width => `${width === metadata.width ? src : src.replace('.webp', `-${width}.webp`)} ${width}w`).join(', ') : undefined;
   return <img className={className} src={src} srcSet={srcSet} sizes={srcSet ? sizes : undefined} width={metadata?.width} height={metadata?.height} alt={alt} loading={eager?'eager':'lazy'} fetchPriority={eager?'high':undefined} decoding="async" onError={()=>setFailedSource(src)} />;
 }
 

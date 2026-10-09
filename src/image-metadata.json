@@ -48,5 +48,112 @@
     "width": 296,
     "height": 296,
     "responsive": false
+  },
+  "scanner-hq": {
+    "width": 2560,
+    "height": 1707,
+    "responsive": true,
+    "variants": [
+      640,
+      1280,
+      2560
+    ]
+  },
+  "microscope-hq": {
+    "width": 2400,
+    "height": 1600,
+    "responsive": true,
+    "variants": [
+      640,
+      1280,
+      2400
+    ]
+  },
+  "operating-room-hq": {
+    "width": 3000,
+    "height": 2000,
+    "responsive": true,
+    "variants": [
+      640,
+      1280,
+      3000
+    ]
+  },
+  "lab-team-hq": {
+    "width": 2400,
+    "height": 1600,
+    "responsive": true,
+    "variants": [
+      640,
+      1280,
+      2400
+    ]
+  },
+  "medical-gas-hq": {
+    "width": 2000,
+    "height": 3000,
+    "responsive": true,
+    "variants": [
+      640,
+      1280,
+      2000
+    ]
+  },
+  "consumables-hq": {
+    "width": 1600,
+    "height": 2400,
+    "responsive": true,
+    "variants": [
+      640,
+      1280,
+      1600
+    ]
+  },
+  "cold-chain-hq": {
+    "width": 3000,
+    "height": 3000,
+    "responsive": true,
+    "variants": [
+      640,
+      1280,
+      3000
+    ]
+  },
+  "infection-control-hq": {
+    "width": 1067,
+    "height": 1600,
+    "responsive": true,
+    "variants": [
+      640,
+      1067
+    ]
+  },
+  "company-training-hq": {
+    "width": 1280,
+    "height": 960,
+    "responsive": true,
+    "variants": [
+      640,
+      1280
+    ]
+  },
+  "installation-hq": {
+    "width": 1280,
+    "height": 960,
+    "responsive": true,
+    "variants": [
+      640,
+      1280
+    ]
+  },
+  "mobile-clinic-hq": {
+    "width": 1536,
+    "height": 1024,
+    "responsive": true,
+    "variants": [
+      640,
+      1280,
+      1536
+    ]
   }
 }

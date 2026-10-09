@@ -29,5 +29,5 @@
 - Operating room (rodrigo porto): https://unsplash.com/photos/surgeons-performing-surgery-in-a-modern-operating-room-vfy71fExF7g — listed as free under the Unsplash License.
 - Laboratory technician (Navy Medicine): https://unsplash.com/es/fotos/un-cientifico-observa-a-traves-de-un-microscopio-en-un-laboratorio-JqfxntbYPms
 - Company training: https://orbiths.com/wp-content/uploads/2022/09/photo_2022-05-30_18-15-00.jpg — existing gallery labels it training at B Medical Systems, Luxembourg. This is company archive imagery, not a new project claim.
-- Remaining equipment references: original images from https://orbiths.com/ . Originals are 296–474px wide; optimization does not create missing detail. Obtain higher-resolution approved originals in the next pass.
+- Image quality pass completed: main assets now use higher-resolution manufacturer/category photographs and responsive delivery. See `IMAGE-QUALITY.md` for sources, usage notes and the labeled mobile-clinic concept.
 - Stock medical photos illustrate categories and are not presented as Orbit installations or staff.

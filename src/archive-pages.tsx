@@ -1,7 +1,7 @@
 import { useRef, useState, useEffect, type FormEvent } from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowDownRight, ArrowUpRight, X, ChevronLeft, ChevronRight, Pause, Play } from 'lucide-react';
-import { CallToAction, Eyebrow, MotionContainer, TextLink } from './components';
+import { CallToAction, Eyebrow, MotionContainer, ResponsiveImage, TextLink } from './components';
 import { services } from './content';
 import archive from './archive-data.json';
 
@@ -58,9 +58,9 @@ export function GalleryPage(){
     <dialog ref={dialog} className="photo-dialog" aria-label="Gallery photograph" onCancel={()=>setActive(null)} onClick={e=>{if(e.target===e.currentTarget)setActive(null)}} onKeyDown={e=>{if(e.key==='ArrowRight'){e.preventDefault();setActive(n=>n===null?n:(n+1)%filtered.length)}if(e.key==='ArrowLeft'){e.preventDefault();setActive(n=>n===null?n:(n-1+filtered.length)%filtered.length)}}}>{selected?<div className="photo-dialog-inner"><button type="button" className="photo-close" aria-label="Close photograph" onClick={()=>setActive(null)} autoFocus><X/></button><img src={media(selected.file)} alt={selected.caption}/><div className="photo-dialog-controls"><button type="button" aria-label="Previous photograph" onClick={()=>setActive(n=>n===null?n:(n-1+filtered.length)%filtered.length)}><ChevronLeft/></button><p>{selected.caption}<small>{(active??0)+1} / {filtered.length}</small></p><button type="button" aria-label="Next photograph" onClick={()=>setActive(n=>n===null?n:(n+1)%filtered.length)}><ChevronRight/></button></div></div>:null}</dialog>
     </section><CallToAction/></MotionContainer>;
 }
-const companyPhotos=[archive.gallery[0],archive.gallery.find(photo=>photo.category==='Installations')!];
+const companyPhotos=[{file:'company-training-hq',caption:'Training at B Medical Systems, Luxembourg'},{file:'installation-hq',caption:'Installation work from our company archive'}];
 export function CompanyPreview(){
-  return <section className="shell section-block company-preview"><Eyebrow section="OUR PEOPLE & WORK" label="FROM THE COMPANY GALLERY"/><div className="company-preview-grid"><div><h2>See the people<br/>behind the work.</h2><p>Explore our training and installation archive, and meet the management team behind Orbit Health Solutions.</p><div className="company-preview-links"><TextLink to="/gallery">Explore the gallery</TextLink><TextLink to="/team">Meet our team</TextLink><TextLink to="/services">View our services</TextLink></div></div><div className="company-photo-preview">{companyPhotos.map(photo=><Link to="/gallery" key={photo.file}><img src={media(photo.file)} alt={photo.caption} width={photo.width} height={photo.height} loading="lazy" decoding="async"/><span>{photo.caption}<ArrowUpRight size={16}/></span></Link>)}</div></div></section>;
+  return <section className="shell section-block company-preview"><Eyebrow section="OUR PEOPLE & WORK" label="FROM THE COMPANY GALLERY"/><div className="company-preview-grid"><div><h2>See the people<br/>behind the work.</h2><p>Explore our training and installation archive, and meet the management team behind Orbit Health Solutions.</p><div className="company-preview-links"><TextLink to="/gallery">Explore the gallery</TextLink><TextLink to="/team">Meet our team</TextLink><TextLink to="/services">View our services</TextLink></div></div><div className="company-photo-preview">{companyPhotos.map(photo=><Link to="/gallery" key={photo.file}><ResponsiveImage src={`${import.meta.env.BASE_URL}images/${photo.file}.webp`} alt={photo.caption} sizes="(max-width: 700px) 100vw, (max-width: 900px) 50vw, 28vw"/><span>{photo.caption}<ArrowUpRight size={16}/></span></Link>)}</div></div></section>;
 }
 
 export function EnquiryDraft(){

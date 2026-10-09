@@ -13,7 +13,7 @@ function Hero() {
         <div className="hero-copy"><p>Medical equipment and healthcare infrastructure for public and private facilities. From project planning to installation, training and technical support.</p><div className="hero-buttons"><ButtonLink to="/solutions" kind="white">Explore solutions</ButtonLink><TextLink to="/contact" light>Discuss your project</TextLink></div></div>
         <div className="hero-base"><span>MEDICAL EQUIPMENT & INFRASTRUCTURE</span><span>ADDIS ABABA, ETHIOPIA</span></div>
       </div>
-      <figure className="hero-photo"><ResponsiveImage eager src={images.hero} alt="Medical imaging scanner in a diagnostic suite; illustrative photography" sizes="(max-width: 900px) 100vw, 50vw"/><figcaption>Equipment for the environments where care happens.</figcaption></figure>
+      <figure className="hero-photo"><ResponsiveImage eager src={images.hero} alt="Medical imaging scanner in a diagnostic suite; illustrative photography" sizes="(max-width: 900px) 100vw, 75vw"/><figcaption>Equipment for the environments where care happens.</figcaption></figure>
     </div>
   </section>;
 }
@@ -79,7 +79,7 @@ function Story() {
   return <section className="section-block story-section shell">
     <Eyebrow section="04 / 05" label="A WIDER VIEW OF HEALTHCARE"/>
     <div className="story-grid">
-      <div className="story-left" data-reveal><div className="story-image"><ResponsiveImage src={images.mobileClinic} alt="Custom mobile healthcare clinic vehicle" /></div><p className="image-caption"><strong>Custom-built mobile clinics</strong><span>Healthcare beyond permanent facilities.</span></p></div>
+      <div className="story-left" data-reveal><div className="story-image"><ResponsiveImage src={images.mobileClinic} alt="Mobile clinic vehicle; AI-generated design concept" /></div><p className="image-caption"><strong>Custom-built mobile clinics</strong><span>Illustrative design concept · Healthcare beyond permanent facilities.</span></p></div>
       <div className="story-content" data-reveal><div className="small-kicker">SOLUTIONS THAT GO FURTHER <span>↗</span></div><h2 className="display-heading">Healthcare doesn't<br/>stop at <span className="muted">four walls.</span></h2><p>Every setting deserves a solution made for its circumstances. Our areas of expertise extend from intensive care to diagnostic equipment and custom-built mobile clinics.</p><TextLink to="/solutions">Discover the possibilities</TextLink></div>
     </div>
   </section>;
@@ -95,7 +95,7 @@ export function SolutionsPage(){
     <section className="inner-hero shell"><Eyebrow section="OUR EXPERTISE" label="EQUIPMENT & INFRASTRUCTURE"/><h1>Solutions for<br/><em>every care setting.</em></h1><div className="inner-hero-foot"><p>From specialized medical equipment to facility infrastructure, explore the areas in which OrbitHS supports healthcare providers.</p><span>08 SOLUTION AREAS <ArrowDownRight size={22}/></span></div></section>
     <div className="inner-banner shell" data-reveal><ResponsiveImage src={images.operatingRoom} alt="Medical equipment supporting a surgical team in an operating room" sizes="100vw"/></div>
     <section className="detail-catalog shell section-block"><Eyebrow section="01 / 02" label="OUR AREAS OF EXPERTISE"/><div className="detail-list">
-      {solutions.map((item,index)=><article className={'catalog-item '+(index%2?'catalog-right':'')} key={item.id} id={item.id} data-reveal><div className={'catalog-img '+(Number(item.number)>3?'equipment-image':'')}><ResponsiveImage src={item.image} alt={item.alt}/></div><div className="catalog-copy"><span className="small-kicker">{item.number} / 08 · {item.short.toUpperCase()}</span><h2>{item.title}</h2><p>{item.description}</p><TextLink to="/contact">Ask about this solution</TextLink></div></article>)}
+      {solutions.map((item,index)=><article className={'catalog-item '+(index%2?'catalog-right':'')} key={item.id} id={item.id} data-reveal><div className={'catalog-img '+(['cold-chain','infection-control','mobile-clinics'].includes(item.id)?'equipment-image':'')}><ResponsiveImage src={item.image} alt={item.alt}/></div><div className="catalog-copy"><span className="small-kicker">{item.number} / 08 · {item.short.toUpperCase()}</span><h2>{item.title}</h2><p>{item.description}</p><TextLink to="/contact">Ask about this solution</TextLink>{item.id==='mobile-clinics'?<p className="reference-caption">Illustrative design concept.</p>:null}{['cold-chain','infection-control'].includes(item.id)?<p className="reference-caption">Manufacturer reference image.</p>:null}</div></article>)}
     </div><p className="caution-copy">Please contact OrbitHS for current product availability and specifications. Images are illustrative of service categories and do not represent confirmed stock or installations.</p></section>
     <CallToAction/>
   </MotionContainer>;

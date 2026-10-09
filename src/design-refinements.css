@@ -236,3 +236,10 @@
   .partner-track { animation: none; transform: none; }
   .partner-run-copy { display: none; }
 }
+
+/* Preserve photographic detail and equipment silhouettes. */
+.story-image { padding: 0; background: #edf5fa; }
+.story-image img { width: 100%; height: auto; aspect-ratio: 3 / 2; object-fit: contain; mix-blend-mode: normal; }
+.catalog-img.equipment-image img { mix-blend-mode: normal; }
+.company-photo-preview img { object-position: center; }
+.reference-caption { margin-top: 18px; font-size: 12px !important; color: #526a7b; }

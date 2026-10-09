@@ -12,29 +12,29 @@ export type Service = {
 const asset = (name: string) => `${import.meta.env.BASE_URL}images/${name}.webp`;
 
 export const images = {
-  hero: asset('scanner'),
-  microscope: asset('microscope'),
-  laboratoryTeam: asset('lab-team'),
-  radiology: asset('scanner'),
-  operatingRoom: asset('operating-room'),
-  companyTraining: asset('training'),
-  mobileClinic: asset('mobile-clinic'),
-  ventilator: asset('operating-room'),
-  medicalGas: asset('medical-gas'),
-  coldChain: asset('cold-chain'),
-  infectionControl: asset('infection-control'),
-  consumables: asset('consumables'),
+  hero: asset('scanner-hq'),
+  microscope: asset('microscope-hq'),
+  laboratoryTeam: asset('lab-team-hq'),
+  radiology: asset('scanner-hq'),
+  operatingRoom: asset('operating-room-hq'),
+  companyTraining: asset('company-training-hq'),
+  mobileClinic: asset('mobile-clinic-hq'),
+  ventilator: asset('operating-room-hq'),
+  medicalGas: asset('medical-gas-hq'),
+  coldChain: asset('cold-chain-hq'),
+  infectionControl: asset('infection-control-hq'),
+  consumables: asset('consumables-hq'),
 };
 
 export const solutions: Service[] = [
   { id:'critical-care',number:'01',title:'ICU & Operating Room Equipment',short:'Critical care & surgery',description:'Equipment solutions to support intensive care and surgical environments.',image:images.ventilator,alt:'Operating room with surgical lighting, patient monitors and a clinical team' },
   { id:'laboratory',number:'02',title:'Laboratory Equipment',short:'Laboratory & research',description:'Scientific, research and medical laboratory equipment for diagnostics and day-to-day operations.',image:images.microscope,alt:'Precision microscope in a medical laboratory' },
   { id:'radiology',number:'03',title:'Advanced Radiology Systems',short:'Imaging & radiology',description:'Medical imaging systems selected for the specific requirements of each facility.',image:images.radiology,alt:'Modern medical scanner in a diagnostic suite' },
-  { id:'cold-chain',number:'04',title:'Cold Chain & Blood Chain Management',short:'Temperature-sensitive care',description:'Solutions for temperature-controlled storage and blood chain management.',image:images.coldChain,alt:'Medical cold-chain equipment' },
-  { id:'medical-gas',number:'05',title:'Medical Gas',short:'Medical gas infrastructure',description:'Planning and supply support for essential medical gas systems.',image:images.medicalGas,alt:'Medical gas system equipment' },
-  { id:'infection-control',number:'06',title:'Waste Management & Infection Control',short:'Safer clinical environments',description:'Healthcare waste and infection-control equipment for clinical settings.',image:images.infectionControl,alt:'Healthcare waste treatment equipment' },
-  { id:'consumables',number:'07',title:'Medical Consumables',short:'Everyday clinical needs',description:'Medical consumables supporting care delivery and routine clinical work.',image:images.consumables,alt:'Medical patient breathing circuit consumable' },
-  { id:'mobile-clinics',number:'08',title:'Custom-Built Mobile Clinics',short:'Healthcare that moves',description:'Mobile medical clinic solutions for providing care beyond permanent facilities.',image:images.mobileClinic,alt:'Mobile healthcare clinic vehicle' },
+  { id:'cold-chain',number:'04',title:'Cold Chain & Blood Chain Management',short:'Temperature-sensitive care',description:'Solutions for temperature-controlled storage and blood chain management.',image:images.coldChain,alt:'Blood-bank refrigerator; manufacturer reference image' },
+  { id:'medical-gas',number:'05',title:'Medical Gas',short:'Medical gas infrastructure',description:'Planning and supply support for essential medical gas systems.',image:images.medicalGas,alt:'Medical oxygen cylinders and regulators; illustrative photography' },
+  { id:'infection-control',number:'06',title:'Waste Management & Infection Control',short:'Safer clinical environments',description:'Healthcare waste and infection-control equipment for clinical settings.',image:images.infectionControl,alt:'Medical waste incinerator; manufacturer reference image' },
+  { id:'consumables',number:'07',title:'Medical Consumables',short:'Everyday clinical needs',description:'Medical consumables supporting care delivery and routine clinical work.',image:images.consumables,alt:'Sterile packaged clinical supplies; illustrative photography' },
+  { id:'mobile-clinics',number:'08',title:'Custom-Built Mobile Clinics',short:'Healthcare that moves',description:'Mobile medical clinic solutions for providing care beyond permanent facilities.',image:images.mobileClinic,alt:'Mobile clinic vehicle; AI-generated design concept' },
 ];
 
 export const approach = [

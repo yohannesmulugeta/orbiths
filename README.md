@@ -60,7 +60,7 @@ The review site is https://yohannesmulugeta.github.io/orbiths/ . Hash routing ke
 
 ## Images and next improvements
 
-All in-page images are local WebP files. Larger photos have 640px variants; the hero is prioritized and other images load lazily. See `IMPROVEMENT-PLAN.md` for sources, completed refinements and the next design/content priorities. Illustrative medical photography must not be labeled as Orbit installations or actual inventory. Some product references still need higher-resolution originals. The supplied official Orbit logo is used in the header and footer. The brand palette is blue `#0397D6`, lime `#C1D72E` and white, with darker blue tones for accessible text and buttons.
+All in-page images are local WebP files. Main photos have 640px, 1280px and full-resolution variants; the hero is prioritized and other images load lazily. See `IMPROVEMENT-PLAN.md` for sources, completed refinements and the next design/content priorities. Illustrative medical photography must not be labeled as Orbit installations or actual inventory. The smaller product references have been replaced with sharper manufacturer/category images; see `IMAGE-QUALITY.md` for sources and the labeled mobile-clinic concept. The supplied official Orbit logo is used in the header and footer. The brand palette is blue `#0397D6`, lime `#C1D72E` and white, with darker blue tones for accessible text and buttons.
 
 ## Production checklist
 
