@@ -13,6 +13,9 @@
 - Restore all six services, 30 partner logos, four team profiles and 130 gallery photos.
 - Add gallery filters, load-more, keyboard photo viewing and a local enquiry download.
 
+- Refine the homepage with a blue hero, separate photo captions, an early moving partner strip, partner search and tighter typography/spacing.
+- See `DESIGN-REVIEW.md` for the current design audit and next business priorities.
+
 ## Next design pass, in priority order
 1. **Identity and first impression:** the supplied official logo and blue/lime palette are applied; request a vector original for sharper future exports and refine headline widths, contrast, section spacing and mobile crops around the photography. Keep the large typography and restrained motion inspired by Integrated Biosciences, adapted to healthcare equipment.
 2. **Show the company's work:** the complete original gallery is now restored; curate the strongest training and installation examples, and have Orbit confirm captions, dates, facility names and publication permission. Add 3–4 approved project stories with scope, equipment and support delivered. Do not invent counts or results.

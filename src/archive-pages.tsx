@@ -1,6 +1,6 @@
 import { useRef, useState, useEffect, type FormEvent } from 'react';
 import { Link } from 'react-router-dom';
-import { ArrowDownRight, ArrowUpRight, X, ChevronLeft, ChevronRight } from 'lucide-react';
+import { ArrowDownRight, ArrowUpRight, X, ChevronLeft, ChevronRight, Pause, Play } from 'lucide-react';
 import { CallToAction, Eyebrow, MotionContainer, TextLink } from './components';
 import { services } from './content';
 import archive from './archive-data.json';
@@ -15,9 +15,21 @@ export function ServicesPage(){
     <section className="shell service-statement"><h2>Built around local needs.</h2><p>Orbit Health Solutions has undertaken projects in Ethiopia's public healthcare sector. Our focus is on technically compliant equipment, products and related services, with efficient, cost effective implementation tailored to each project.</p><TextLink to="/solutions">Explore all eight solution areas</TextLink></section><CallToAction/></MotionContainer>;
 }
 export function PartnersPage(){
+  const [search,setSearch]=useState('');
+  const partners=archive.partners.filter(partner=>partner.name.toLowerCase().includes(search.trim().toLowerCase()));
   return <MotionContainer><PageIntro label="OUR PARTNERS" title="Technology. Together." copy="Explore the manufacturers and partners featured by Orbit Health Solutions, supporting our approach to medical equipment and healthcare infrastructure."/>
-    <section className="shell section-block"><div className="directory-heading"><h2>Our partner directory</h2><span>{archive.partners.length} PARTNERS</span></div><div className="partner-grid">{archive.partners.map(partner=><article className="partner-tile" key={partner.file}><div><img src={media(partner.file)} width={partner.width} height={partner.height} loading="lazy" decoding="async" alt={`${partner.name} logo`}/></div><h3>{partner.name}</h3></article>)}</div></section><CallToAction/></MotionContainer>;
+    <section className="shell section-block"><div className="directory-heading"><h2>Our partner directory</h2><span>{archive.partners.length} PARTNERS</span></div><label className="partner-search">Find a partner<input type="search" value={search} onChange={event=>setSearch(event.target.value)} placeholder="Search by company name"/></label><p className="directory-count" role="status">{partners.length} {partners.length===1?'partner':'partners'}{search.trim()?` matching “${search.trim()}”`:''}</p><div className="partner-grid">{partners.map(partner=><article className="partner-tile" key={partner.file}><div><img src={media(partner.file)} width={partner.width} height={partner.height} loading="lazy" decoding="async" alt={`${partner.name} logo`}/></div><h3>{partner.name}</h3></article>)}</div>{partners.length===0?<p>No partners match this search. Try another company name.</p>:null}</section><CallToAction/></MotionContainer>;
 }
+
+export function PartnerMarquee(){
+  const [paused,setPaused]=useState(()=>window.matchMedia('(prefers-reduced-motion: reduce)').matches);
+  useEffect(()=>{const mediaQuery=window.matchMedia('(prefers-reduced-motion: reduce)');const onChange=(event:MediaQueryListEvent)=>setPaused(event.matches);mediaQuery.addEventListener('change',onChange);return()=>mediaQuery.removeEventListener('change',onChange)},[]);
+  return <section className="partner-strip" aria-labelledby="partner-strip-title">
+    <div className="shell partner-strip-heading"><div><span className="small-kicker">OUR TECHNOLOGY PARTNERS</span><h2 id="partner-strip-title">Working together for better care.</h2></div><div className="partner-strip-actions"><TextLink to="/partners">Explore all partners</TextLink><button type="button" className="partner-motion-toggle" aria-label={paused?'Play partner logo animation':'Pause partner logo animation'} aria-pressed={paused} aria-controls="partner-logo-track" onClick={()=>setPaused(value=>!value)}>{paused?<Play size={16}/>:<Pause size={16}/>}<span>{paused?'Play':'Pause'}</span></button></div></div>
+    <div className={'partner-window '+(paused?'is-paused':'')}><div className="partner-track" id="partner-logo-track"><ul className="partner-run">{archive.partners.map(partner=><li key={partner.file}><Link to="/partners" aria-label={`View partner directory: ${partner.name}`}><img src={media(partner.file)} width={partner.width} height={partner.height} loading="lazy" decoding="async" alt={`${partner.name} logo`}/><span>{partner.name}</span></Link></li>)}</ul><div className="partner-run partner-run-copy" aria-hidden="true">{archive.partners.map(partner=><div className="partner-copy-card" key={partner.file}><img src={media(partner.file)} width={partner.width} height={partner.height} loading="lazy" decoding="async" alt=""/><span>{partner.name}</span></div>)}</div></div></div>
+  </section>;
+}
+
 const team = [
   {name:'Martha Ayenew',role:'Managing Director',file:'team-1.webp',initials:'MA'},
   {name:'Kumlachew Yeshambel',role:'Deputy General Manager & Commercial Division Head',file:'team-2.webp',initials:'KY'},
@@ -46,9 +58,11 @@ export function GalleryPage(){
     <dialog ref={dialog} className="photo-dialog" aria-label="Gallery photograph" onCancel={()=>setActive(null)} onClick={e=>{if(e.target===e.currentTarget)setActive(null)}} onKeyDown={e=>{if(e.key==='ArrowRight'){e.preventDefault();setActive(n=>n===null?n:(n+1)%filtered.length)}if(e.key==='ArrowLeft'){e.preventDefault();setActive(n=>n===null?n:(n-1+filtered.length)%filtered.length)}}}>{selected?<div className="photo-dialog-inner"><button type="button" className="photo-close" aria-label="Close photograph" onClick={()=>setActive(null)} autoFocus><X/></button><img src={media(selected.file)} alt={selected.caption}/><div className="photo-dialog-controls"><button type="button" aria-label="Previous photograph" onClick={()=>setActive(n=>n===null?n:(n-1+filtered.length)%filtered.length)}><ChevronLeft/></button><p>{selected.caption}<small>{(active??0)+1} / {filtered.length}</small></p><button type="button" aria-label="Next photograph" onClick={()=>setActive(n=>n===null?n:(n+1)%filtered.length)}><ChevronRight/></button></div></div>:null}</dialog>
     </section><CallToAction/></MotionContainer>;
 }
+const companyPhotos=[archive.gallery[0],archive.gallery.find(photo=>photo.category==='Installations')!];
 export function CompanyPreview(){
-  return <section className="shell section-block company-preview"><Eyebrow section="OUR PEOPLE & PARTNERS" label="THE CONNECTIONS BEHIND CARE"/><div className="company-preview-grid"><div><h2>Working together.<br/>Moving care forward.</h2><p>Meet our management team, explore our technology partners and see the people and projects in our company gallery.</p><div className="company-preview-links"><TextLink to="/partners">Our partners</TextLink><TextLink to="/team">Management team</TextLink><TextLink to="/gallery">Visit our gallery</TextLink><TextLink to="/services">Our six services</TextLink></div></div><div className="partner-preview">{archive.partners.slice(0,6).map(p=><Link to="/partners" key={p.file} aria-label={`Explore our partners: ${p.name}`}><img src={media(p.file)} alt={`${p.name} logo`} width={p.width} height={p.height} loading="lazy" decoding="async"/></Link>)}</div></div></section>;
+  return <section className="shell section-block company-preview"><Eyebrow section="OUR PEOPLE & WORK" label="FROM THE COMPANY GALLERY"/><div className="company-preview-grid"><div><h2>See the people<br/>behind the work.</h2><p>Explore our training and installation archive, and meet the management team behind Orbit Health Solutions.</p><div className="company-preview-links"><TextLink to="/gallery">Explore the gallery</TextLink><TextLink to="/team">Meet our team</TextLink><TextLink to="/services">View our services</TextLink></div></div><div className="company-photo-preview">{companyPhotos.map(photo=><Link to="/gallery" key={photo.file}><img src={media(photo.file)} alt={photo.caption} width={photo.width} height={photo.height} loading="lazy" decoding="async"/><span>{photo.caption}<ArrowUpRight size={16}/></span></Link>)}</div></div></section>;
 }
+
 export function EnquiryDraft(){
   const [prepared,setPrepared]=useState(false);
   function download(event:FormEvent<HTMLFormElement>){
