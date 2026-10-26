@@ -5,6 +5,7 @@ import App from './App';
 import './styles.css';
 import './design-refinements.css';
 import './premium-experience.css';
+import './cinematic-upgrade.css';
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>

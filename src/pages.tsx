@@ -1,52 +1,11 @@
-import { useLayoutEffect, useRef, useState } from 'react';
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import gsap from 'gsap';
 import { ArrowDownRight, ArrowUpRight, MapPin, Phone, Clock3, MoveUpRight, Plus } from 'lucide-react';
 import { approach, capabilities, images, solutions } from './content';
 import { ButtonLink, CallToAction, Eyebrow, MotionContainer, ResponsiveImage, TextLink } from './components';
-import { CompanyPreview, EnquiryDraft, PartnerMarquee } from './archive-pages';
+import { EnquiryDraft, PartnerMarquee } from './archive-pages';
+import { CinematicHero, CareJourney, TechnicalLens, ProjectHighlights } from './premium-sections';
 
-function Hero() {
-  const heroRef = useRef<HTMLElement>(null);
-
-  useLayoutEffect(() => {
-    const hero = heroRef.current;
-    if (!hero || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-    const image = hero.querySelector<HTMLElement>('.hero-image-stage img');
-    if (!image) return;
-    const ctx = gsap.context(() => {
-      gsap.fromTo(image, { yPercent: -5, scale: 1.075 }, {
-        yPercent: 5, scale: 1.075, ease: 'none',
-        scrollTrigger: { trigger: hero, start: 'top top', end: 'bottom top', scrub: 0.7 }
-      });
-    }, hero);
-    return () => ctx.revert();
-  }, []);
-
-  return <section ref={heroRef} className="hero-section shell premium-hero" aria-labelledby="hero-title">
-    <div className="hero-panel premium-hero-panel">
-      <div className="hero-inner">
-        <div className="hero-kicker"><span className="pulse-dot"/> ORBIT HEALTH SOLUTIONS · ETHIOPIA</div>
-        <h1 id="hero-title">Healthcare<br/>technology.<br/><span>Better care.</span></h1>
-        <div className="hero-copy"><p>Medical equipment and healthcare infrastructure for public and private facilities. From project planning to installation, training and technical support.</p><div className="hero-buttons"><ButtonLink to="/solutions" kind="white">Explore solutions</ButtonLink><TextLink to="/contact" light>Discuss your project</TextLink></div></div>
-        <div className="hero-base"><span>ENGINEERED AROUND CARE</span><span>ADDIS ABABA, ETHIOPIA</span></div>
-      </div>
-      <figure className="hero-photo premium-hero-scene">
-        <div className="hero-image-stage">
-          <ResponsiveImage eager src={images.hero} alt="Illustrative medical imaging scanner in a diagnostic suite" sizes="(max-width: 900px) 100vw, 55vw"/>
-          <div className="hero-scene-shade" aria-hidden="true"/>
-          <div className="hero-orbit hero-orbit-one" aria-hidden="true"/>
-          <div className="hero-orbit hero-orbit-two" aria-hidden="true"/>
-          <div className="hero-crosshair" aria-hidden="true"><span/><span/></div>
-          <div className="hero-hud hero-hud-top" aria-hidden="true"><span className="hero-hud-pulse"/> CLINICAL TECHNOLOGY <span>01 / 03</span></div>
-          <div className="hero-hud hero-hud-bottom" aria-hidden="true"><span>PRECISION IN EVERY DETAIL</span><span>↗</span></div>
-        </div>
-        <figcaption><span>IMAGING &amp; DIAGNOSTICS</span> Equipment for the environments where care happens. <small>Illustrative medical photography</small></figcaption>
-      </figure>
-    </div>
-    <div className="hero-underbar" aria-hidden="true"><span>01 — DISCOVER ORBIT</span><span>MEDICAL EQUIPMENT · INFRASTRUCTURE · SUPPORT</span><span>SCROLL TO EXPLORE ↓</span></div>
-  </section>;
-}
 function Intro() {
   return <section className="section-block intro-section shell" id="discover">
     <Eyebrow section="01 / 05" label="A MORE CONNECTED APPROACH TO HEALTHCARE"/>
@@ -85,7 +44,7 @@ function SolutionsExplorer() {
       </div>
       <div className="explorer-feature" id="explorer-panel" role="tabpanel" aria-labelledby={`explorer-tab-${active}`} tabIndex={0}>
         <div className="explorer-image" key={item.id}><ResponsiveImage src={item.image} alt={item.alt} eager sizes="(max-width: 900px) 100vw, 52vw"/><span className="explorer-image-tag">CATEGORY {item.number} / 08</span></div>
-        <div className="explorer-feature-foot"><div><span>{item.short.toUpperCase()}</span><h3>{item.title}</h3><p>{item.description}</p></div><Link className="explorer-open" to="/solutions" aria-label={`Learn about ${item.title}`}><ArrowUpRight size={26}/></Link></div>
+        <div className="explorer-feature-foot"><div><span>{item.short.toUpperCase()}</span><h3>{item.title}</h3><p>{item.description}</p></div><Link className="explorer-open" to={{ pathname: '/solutions', hash: '#' + item.id }} aria-label={`Learn about ${item.title}`}><ArrowUpRight size={26}/></Link></div>
         <p className="explorer-disclaimer">Category imagery is illustrative. Contact ORBIT to confirm product specifications and availability.</p>
       </div>
     </div>
@@ -131,7 +90,7 @@ function Story() {
 
 
 export function HomePage(){
-  return <MotionContainer><Hero/><PartnerMarquee/><Intro/><SolutionsPreview/><Approach/><Story/><CompanyPreview/><CallToAction/></MotionContainer>;
+  return <MotionContainer><CinematicHero/><PartnerMarquee/><Intro/><CareJourney/><SolutionsPreview/><TechnicalLens/><Approach/><ProjectHighlights/><Story/><CallToAction/></MotionContainer>;
 }
 
 export function SolutionsPage(){

@@ -66,10 +66,21 @@ export function CompanyPreview(){
 
 export function EnquiryDraft(){
   const [prepared,setPrepared]=useState(false);
-  function download(event:FormEvent<HTMLFormElement>){
-    event.preventDefault();const data=new FormData(event.currentTarget);
-    const body=['Enquiry for Orbit Health Solutions','',...['Name','Email','Phone','Company','Message'].map(key=>`${key}: ${data.get(key)||'—'}`)].join('\n');
-    const url=URL.createObjectURL(new Blob([body],{type:'text/plain;charset=utf-8'}));const a=document.createElement('a');a.href=url;a.download='orbiths-enquiry.txt';a.click();URL.revokeObjectURL(url);setPrepared(true);
+  const [copyStatus,setCopyStatus]=useState<'idle'|'copied'|'failed'>('idle');
+  function buildEnquiry(form:HTMLFormElement){
+    const data=new FormData(form);
+    return ['Enquiry for Orbit Health Solutions','',...['Name','Email','Phone','Company','Message'].map(key=>key+': '+(data.get(key)||'—'))].join('\n');
   }
-  return <section className="shell section-block enquiry-section"><div><Eyebrow section="YOUR NEXT PROJECT" label="PREPARE AN ENQUIRY"/><h2>Tell us what you need.</h2><p>Prepare your project details, then call our team to arrange the next step. Downloading saves your enquiry to your device; it does not send it to OrbitHS.</p><a href="tel:+251116507335" className="underlink">Call +251 11 650 7335 <ArrowUpRight size={18}/></a></div><form className="enquiry-form" onSubmit={download} onChange={()=>setPrepared(false)}><label>Name<input name="Name" autoComplete="name" required maxLength={120}/></label><label>Email address<input name="Email" type="email" autoComplete="email" required maxLength={200}/></label><label>Phone number<input name="Phone" type="tel" autoComplete="tel" maxLength={60}/></label><label>Company<input name="Company" autoComplete="organization" maxLength={200}/></label><label className="form-wide">Message<textarea name="Message" rows={5} required maxLength={5000}/></label><button className="button-link button-dark form-wide" type="submit">Download enquiry <ArrowDownRight size={18}/></button><p className="form-wide form-status" role="status">{prepared?'Your enquiry file is ready. Call our team to arrange follow-up.':'Your details stay on your device.'}</p></form></section>;
+  function download(event:FormEvent<HTMLFormElement>){
+    event.preventDefault();
+    const url=URL.createObjectURL(new Blob([buildEnquiry(event.currentTarget)],{type:'text/plain;charset=utf-8'}));
+    const a=document.createElement('a');a.href=url;a.download='orbiths-enquiry.txt';a.click();
+    URL.revokeObjectURL(url);setPrepared(true);
+  }
+  async function copyEnquiry(form:HTMLFormElement | null){
+    if (!form || !form.reportValidity()) return;
+    try { await navigator.clipboard.writeText(buildEnquiry(form));setCopyStatus('copied'); }
+    catch { setCopyStatus('failed'); }
+  }
+  return <section className="shell section-block enquiry-section"><div><Eyebrow section="YOUR NEXT PROJECT" label="PREPARE AN ENQUIRY"/><h2>Tell us what you need.</h2><p>Prepare your project details, copy or download them, then call our team to arrange the next step. <strong>This form does not send information automatically.</strong></p><a href="tel:+251116507335" className="underlink">Call +251 11 650 7335 <ArrowUpRight size={18}/></a></div><form className="enquiry-form" onSubmit={download} onChange={()=>{setPrepared(false);setCopyStatus('idle');}}><label>Name<input name="Name" autoComplete="name" required maxLength={120}/></label><label>Email address<input name="Email" type="email" autoComplete="email" required maxLength={200}/></label><label>Phone number<input name="Phone" type="tel" autoComplete="tel" maxLength={60}/></label><label>Company<input name="Company" autoComplete="organization" maxLength={200}/></label><label className="form-wide">Message<textarea name="Message" rows={5} required maxLength={5000}/></label><button className="button-link button-dark form-wide" type="submit">Download enquiry <ArrowDownRight size={18}/></button><button className="button-link button-white enquiry-copy form-wide" type="button" onClick={event=>{void copyEnquiry(event.currentTarget.form);}}>Copy enquiry text <ArrowUpRight size={18}/></button><p className="form-wide form-status" role="status">{copyStatus==='copied'?'Enquiry copied to your clipboard. Contact the ORBIT team to share it.':copyStatus==='failed'?'Clipboard unavailable. Use Download enquiry instead.':prepared?'Enquiry downloaded. Contact the ORBIT team to share it.':'Your information stays in your browser unless you choose to download or copy it.'}</p></form></section>;
 }
