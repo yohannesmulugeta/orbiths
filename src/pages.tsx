@@ -1,23 +1,52 @@
+import { useLayoutEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
+import gsap from 'gsap';
 import { ArrowDownRight, ArrowUpRight, MapPin, Phone, Clock3, MoveUpRight, Plus } from 'lucide-react';
 import { approach, capabilities, images, solutions, type Service } from './content';
-import { ArrowBadge, ButtonLink, CallToAction, Eyebrow, MotionContainer, ResponsiveImage, TextLink } from './components';
+import { ButtonLink, CallToAction, Eyebrow, MotionContainer, ResponsiveImage, TextLink } from './components';
 import { CompanyPreview, EnquiryDraft, PartnerMarquee } from './archive-pages';
 
 function Hero() {
-  return <section className="hero-section shell" aria-labelledby="hero-title">
-    <div className="hero-panel">
+  const heroRef = useRef<HTMLElement>(null);
+
+  useLayoutEffect(() => {
+    const hero = heroRef.current;
+    if (!hero || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    const image = hero.querySelector<HTMLElement>('.hero-image-stage img');
+    if (!image) return;
+    const ctx = gsap.context(() => {
+      gsap.fromTo(image, { yPercent: -5, scale: 1.075 }, {
+        yPercent: 5, scale: 1.075, ease: 'none',
+        scrollTrigger: { trigger: hero, start: 'top top', end: 'bottom top', scrub: 0.7 }
+      });
+    }, hero);
+    return () => ctx.revert();
+  }, []);
+
+  return <section ref={heroRef} className="hero-section shell premium-hero" aria-labelledby="hero-title">
+    <div className="hero-panel premium-hero-panel">
       <div className="hero-inner">
         <div className="hero-kicker"><span className="pulse-dot"/> ORBIT HEALTH SOLUTIONS · ETHIOPIA</div>
         <h1 id="hero-title">Healthcare<br/>technology.<br/><span>Better care.</span></h1>
         <div className="hero-copy"><p>Medical equipment and healthcare infrastructure for public and private facilities. From project planning to installation, training and technical support.</p><div className="hero-buttons"><ButtonLink to="/solutions" kind="white">Explore solutions</ButtonLink><TextLink to="/contact" light>Discuss your project</TextLink></div></div>
-        <div className="hero-base"><span>MEDICAL EQUIPMENT & INFRASTRUCTURE</span><span>ADDIS ABABA, ETHIOPIA</span></div>
+        <div className="hero-base"><span>ENGINEERED AROUND CARE</span><span>ADDIS ABABA, ETHIOPIA</span></div>
       </div>
-      <figure className="hero-photo"><ResponsiveImage eager src={images.hero} alt="Medical imaging scanner in a diagnostic suite; illustrative photography" sizes="(max-width: 900px) 100vw, 75vw"/><figcaption>Equipment for the environments where care happens.</figcaption></figure>
+      <figure className="hero-photo premium-hero-scene">
+        <div className="hero-image-stage">
+          <ResponsiveImage eager src={images.hero} alt="Illustrative medical imaging scanner in a diagnostic suite" sizes="(max-width: 900px) 100vw, 55vw"/>
+          <div className="hero-scene-shade" aria-hidden="true"/>
+          <div className="hero-orbit hero-orbit-one" aria-hidden="true"/>
+          <div className="hero-orbit hero-orbit-two" aria-hidden="true"/>
+          <div className="hero-crosshair" aria-hidden="true"><span/><span/></div>
+          <div className="hero-hud hero-hud-top" aria-hidden="true"><span className="hero-hud-pulse"/> CLINICAL TECHNOLOGY <span>01 / 03</span></div>
+          <div className="hero-hud hero-hud-bottom" aria-hidden="true"><span>PRECISION IN EVERY DETAIL</span><span>↗</span></div>
+        </div>
+        <figcaption><span>IMAGING &amp; DIAGNOSTICS</span> Equipment for the environments where care happens. <small>Illustrative medical photography</small></figcaption>
+      </figure>
     </div>
+    <div className="hero-underbar" aria-hidden="true"><span>01 — DISCOVER ORBIT</span><span>MEDICAL EQUIPMENT · INFRASTRUCTURE · SUPPORT</span><span>SCROLL TO EXPLORE ↓</span></div>
   </section>;
 }
-
 function Intro() {
   return <section className="section-block intro-section shell" id="discover">
     <Eyebrow section="01 / 05" label="A MORE CONNECTED APPROACH TO HEALTHCARE"/>
@@ -34,13 +63,34 @@ function Intro() {
 }
 
 
-function SolutionCard({item,index}:{item:Service,index:number}){
-  return <Link className={'solution-feature solution-feature-'+index} to="/solutions" data-reveal>
-    <div className="solution-feature-image"><ResponsiveImage src={item.image} alt={item.alt} sizes="(max-width: 700px) 100vw, 33vw"/></div>
-    <div className="solution-feature-content"><div className="solution-feature-top"><span>{item.short.toUpperCase()}</span><ArrowBadge/></div><div className="solution-feature-bottom"><h3>{item.title}</h3><span>Explore solution <ArrowUpRight size={15}/></span></div></div>
-  </Link>;
+function SolutionsExplorer() {
+  const [active, setActive] = useState(2);
+  const item = solutions[active];
+  return <div className="solutions-explorer" data-reveal>
+    <div className="explorer-head"><span>EXPLORE OUR EXPERTISE</span><span>08 SOLUTION AREAS</span></div>
+    <div className="explorer-layout">
+      <div className="explorer-nav" role="tablist" aria-label="Explore medical solutions">
+        {solutions.map((solution, index) =>
+          <button key={solution.id} id={`explorer-tab-${index}`} type="button" role="tab" aria-selected={active === index} aria-controls="explorer-panel" tabIndex={active === index ? 0 : -1}
+            onClick={() => setActive(index)} onKeyDown={event => {
+              if (event.key !== 'ArrowDown' && event.key !== 'ArrowUp' && event.key !== 'Home' && event.key !== 'End') return;
+              event.preventDefault();
+              const next = event.key === 'Home' ? 0 : event.key === 'End' ? solutions.length - 1 : (active + (event.key === 'ArrowDown' ? 1 : -1) + solutions.length) % solutions.length;
+              setActive(next);
+              document.getElementById(`explorer-tab-${next}`)?.focus();
+            }}>
+            <span>{solution.number}</span><strong>{solution.title}</strong><ArrowUpRight size={19} strokeWidth={1.5}/>
+          </button>
+        )}
+      </div>
+      <div className="explorer-feature" id="explorer-panel" role="tabpanel" aria-labelledby={`explorer-tab-${active}`} tabIndex={0}>
+        <div className="explorer-image" key={item.id}><ResponsiveImage src={item.image} alt={item.alt} eager sizes="(max-width: 900px) 100vw, 52vw"/><span className="explorer-image-tag">CATEGORY {item.number} / 08</span></div>
+        <div className="explorer-feature-foot"><div><span>{item.short.toUpperCase()}</span><h3>{item.title}</h3><p>{item.description}</p></div><Link className="explorer-open" to="/solutions" aria-label={`Learn about ${item.title}`}><ArrowUpRight size={26}/></Link></div>
+        <p className="explorer-disclaimer">Category imagery is illustrative. Contact ORBIT to confirm product specifications and availability.</p>
+      </div>
+    </div>
+  </div>;
 }
-
 function SolutionsPreview() {
   return <section className="section-block solutions-preview">
     <div className="shell">
@@ -49,14 +99,8 @@ function SolutionsPreview() {
         <h2 className="display-heading">Equipment for<br/><span className="muted">every care setting.</span></h2>
         <p>Explore our eight areas of expertise, from critical care and diagnostics to cold-chain systems and mobile clinics.</p>
       </div>
-      <div className="solution-feature-grid">
-        <SolutionCard item={solutions[1]} index={0}/>
-        <SolutionCard item={solutions[2]} index={1}/>
-        <SolutionCard item={solutions[0]} index={2}/>
-      </div>
-      <div className="solutions-index" data-reveal>
-        {solutions.slice(3).map(s=><Link to="/solutions" key={s.id}><span>{s.number}</span><strong>{s.title}</strong><ArrowUpRight size={20} strokeWidth={1.5}/></Link>)}
-      </div>
+      <SolutionsExplorer/>
+
       <div className="view-all-wrap"><ButtonLink to="/solutions" kind="dark">View all eight solution areas</ButtonLink></div>
     </div>
   </section>;
