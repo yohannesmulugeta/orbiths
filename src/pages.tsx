@@ -2,7 +2,7 @@ import { useLayoutEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import gsap from 'gsap';
 import { ArrowDownRight, ArrowUpRight, MapPin, Phone, Clock3, MoveUpRight, Plus } from 'lucide-react';
-import { approach, capabilities, images, solutions, type Service } from './content';
+import { approach, capabilities, images, solutions } from './content';
 import { ButtonLink, CallToAction, Eyebrow, MotionContainer, ResponsiveImage, TextLink } from './components';
 import { CompanyPreview, EnquiryDraft, PartnerMarquee } from './archive-pages';
 
