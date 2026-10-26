@@ -4,7 +4,7 @@ import { ArrowDown, ArrowRight, ArrowUpRight, Check, MoveUpRight, Pause, Play } 
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { Eyebrow, ResponsiveImage, TextLink } from './components';
-import { images, solutions } from './content';
+import { images } from './content';
 
 gsap.registerPlugin(ScrollTrigger);
 
