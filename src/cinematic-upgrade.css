@@ -257,3 +257,8 @@ html { scroll-padding-top: 108px; }
   .cine-shot,.cine-shot img,.journey-photo,.lens-device,.project-card,.project-photo img { transition:none!important; animation:none!important; }
   .lens-device { transform:none!important; }
 }
+
+/* Clear, low-friction contact preparation for static GitHub Pages hosting. */
+.enquiry-form .enquiry-copy { border:1px solid #a2cfdf; background:#f0f9fd; color:#065478; justify-content:space-between; font-weight:800; }
+.enquiry-form .enquiry-copy:hover { background:#dff2fa; }
+.enquiry-form .form-status { min-height:24px; line-height:1.65; }
