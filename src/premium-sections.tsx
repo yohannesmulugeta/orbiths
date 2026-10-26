@@ -164,12 +164,12 @@ export function TechnicalLens() {
     const rectangle = event.currentTarget.getBoundingClientRect();
     const x = (event.clientX - rectangle.left) / rectangle.width - 0.5;
     const y = (event.clientY - rectangle.top) / rectangle.height - 0.5;
-    event.currentTarget.style.setProperty('--lens-x', String(x));
-    event.currentTarget.style.setProperty('--lens-y', String(y));
+    event.currentTarget.style.setProperty('--lens-x', String(x * 10) + 'deg');
+    event.currentTarget.style.setProperty('--lens-y', String(-y * 8) + 'deg');
   }
   function reset() {
-    ref.current?.style.setProperty('--lens-x', '0');
-    ref.current?.style.setProperty('--lens-y', '0');
+    ref.current?.style.setProperty('--lens-x', '0deg');
+    ref.current?.style.setProperty('--lens-y', '0deg');
   }
 
   return <section className="technical-lens section-block shell" aria-labelledby="lens-title">
