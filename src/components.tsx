@@ -8,8 +8,13 @@ import imageMetadata from './image-metadata.json';
 gsap.registerPlugin(ScrollTrigger);
 
 export function ScrollToTop() {
-  const { pathname } = useLocation();
-  useEffect(() => { window.scrollTo({top:0,behavior:'auto'}); }, [pathname]);
+  const { pathname, hash } = useLocation();
+  useEffect(() => {
+    if (!hash) { window.scrollTo({top:0,behavior:'auto'}); return; }
+    const id = decodeURIComponent(hash.slice(1));
+    const frame = window.requestAnimationFrame(() => document.getElementById(id)?.scrollIntoView({behavior:'instant',block:'start'}));
+    return () => window.cancelAnimationFrame(frame);
+  }, [pathname, hash]);
   return null;
 }
 
