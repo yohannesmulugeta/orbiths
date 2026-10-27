@@ -1,6 +1,6 @@
 import { useRef, useState, useEffect, type FormEvent } from 'react';
 import { Link } from 'react-router-dom';
-import { ArrowDownRight, ArrowUpRight, X, ChevronLeft, ChevronRight, Pause, Play, ClipboardCheck, BriefcaseBusiness, PackageCheck, Wrench, GraduationCap, LifeBuoy } from 'lucide-react';
+import { ArrowDownRight, ArrowUpRight, ArrowRight, Search, X, ChevronLeft, ChevronRight, Pause, Play, ClipboardCheck, BriefcaseBusiness, PackageCheck, Wrench, GraduationCap, LifeBuoy } from 'lucide-react';
 import { CallToAction, Eyebrow, MotionContainer, ResponsiveImage, TextLink } from './components';
 import { services } from './content';
 import archive from './archive-data.json';
@@ -15,11 +15,51 @@ export function ServicesPage(){
     <section className="shell section-block service-grid" aria-label="Our six services">{services.map((service,i)=>{ const Icon = serviceIcons[i]; return <article className="service-tile" key={service.title} data-reveal><div className="service-icon" aria-hidden="true"><Icon size={26} strokeWidth={1.5}/></div><span className="small-kicker">SERVICE / {String(i+1).padStart(2,'0')}</span><h2>{service.title}</h2><p>{service.copy}</p><TextLink to="/contact">Discuss your requirements</TextLink></article>; })}</section>
     <section className="shell service-statement"><h2>Built around local needs.</h2><p>Orbit Health Solutions has undertaken projects in Ethiopia's public healthcare sector. Our focus is on technically compliant equipment, products and related services, with efficient, cost effective implementation tailored to each project.</p><TextLink to="/solutions">Explore all eight solution areas</TextLink></section><CallToAction/></MotionContainer>;
 }
+const partnerDirectory = [...archive.partners].sort((a,b)=>a.name.localeCompare(b.name,'en',{sensitivity:'base'}));
+const partnerGroups = [
+  {label:'All partners',from:'A',to:'Z'},
+  {label:'A–F',from:'A',to:'F'},
+  {label:'G–M',from:'G',to:'M'},
+  {label:'N–Z',from:'N',to:'Z'},
+];
+function inPartnerGroup(name:string,index:number) {
+  const initial=name.charAt(0).toUpperCase();
+  return index===0 || (initial>=partnerGroups[index].from && initial<=partnerGroups[index].to);
+}
+function DirectoryLogo({partner}:{partner:typeof archive.partners[number]}) {
+  const [failed,setFailed]=useState(false);
+  return failed?<span className="partner-logo-fallback">{partner.name}</span>:<img src={media(partner.file)} width={partner.width} height={partner.height} loading="lazy" decoding="async" alt={`${partner.name} logo`} onError={()=>setFailed(true)}/>;
+}
 export function PartnersPage(){
   const [search,setSearch]=useState('');
-  const partners=archive.partners.filter(partner=>partner.name.toLowerCase().includes(search.trim().toLowerCase()));
-  return <MotionContainer><PageIntro label="OUR PARTNERS" title="Technology. Together." copy="Explore the manufacturers and partners featured by Orbit Health Solutions, supporting our approach to medical equipment and healthcare infrastructure."/>
-    <section className="shell section-block"><div className="directory-heading"><h2>Our partner directory</h2><span>{archive.partners.length} PARTNERS</span></div><label className="partner-search">Find a partner<input type="search" value={search} onChange={event=>setSearch(event.target.value)} placeholder="Search by company name"/></label><p className="partner-directory-note">Browse the organizations featured in the ORBIT company directory. Contact our team to confirm current manufacturer relationships and product availability.</p><p className="directory-count" role="status">{partners.length} {partners.length===1?'partner':'partners'}{search.trim()?` matching “${search.trim()}”`:''}</p><div className="partner-grid">{partners.map(partner=><article className="partner-tile" key={partner.file}><div><img src={media(partner.file)} width={partner.width} height={partner.height} loading="lazy" decoding="async" alt={`${partner.name} logo`}/></div><h3>{partner.name}</h3></article>)}</div>{partners.length===0?<p>No partners match this search. Try another company name.</p>:null}</section><CallToAction/></MotionContainer>;
+  const [group,setGroup]=useState(0);
+  const searchInput=useRef<HTMLInputElement>(null);
+  const query=search.trim().toLowerCase();
+  const partners=partnerDirectory.filter(partner=>inPartnerGroup(partner.name,group) && partner.name.toLowerCase().includes(query));
+  const filtered=Boolean(query || group);
+  const reset=()=>{setSearch('');setGroup(0);searchInput.current?.focus()};
+  return <div className="partners-page">
+    <section className="partners-intro shell" aria-labelledby="partners-title">
+      <nav className="partners-breadcrumb" aria-label="Breadcrumb"><Link to="/">Home</Link><span aria-hidden="true">/</span><span aria-current="page">Partners</span></nav>
+      <div className="partners-hero">
+        <div className="partners-hero-copy"><h1 id="partners-title">Our technology<br/><em>partners.</em></h1><p>Explore the manufacturers and organizations in the ORBIT Health Solutions partner directory.</p><a href="#partner-directory" onClick={event=>{event.preventDefault();document.getElementById('partner-directory')?.scrollIntoView({behavior:window.matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth'})}}>Explore the directory <ArrowDownRight size={18}/></a></div>
+        <figure className="partners-hero-photo"><ResponsiveImage src={`${import.meta.env.BASE_URL}images/company-training-hq.webp`} alt="ORBIT team visiting B Medical Systems in Luxembourg" eager sizes="(max-width: 760px) 100vw, 47vw"/><figcaption>ORBIT team at B Medical Systems, Luxembourg</figcaption></figure>
+      </div>
+    </section>
+    <section id="partner-directory" className="partners-directory shell" aria-labelledby="partners-directory-title">
+      <div className="partners-directory-top"><div><h2 id="partners-directory-title">The partner directory</h2><p>Browse manufacturers and organizations, A–Z.</p></div><span className="partners-total">{partnerDirectory.length}<small>COMPANIES</small></span></div>
+      <div className="partners-toolbar">
+        <div className="partners-group-filter" role="group" aria-label="Filter partners by name">{partnerGroups.map((item,index)=><button key={item.label} type="button" aria-pressed={group===index} aria-controls="partners-results" onClick={()=>setGroup(index)}>{item.label}<span>{partnerDirectory.filter(partner=>inPartnerGroup(partner.name,index)).length}</span></button>)}</div>
+        <div className="partners-search-field"><Search size={18} aria-hidden="true"/><label className="sr-only" htmlFor="partners-search">Search partners</label><input ref={searchInput} id="partners-search" type="search" placeholder="Search company name" value={search} onChange={event=>setSearch(event.target.value)} aria-controls="partners-results"/>{search && <button type="button" aria-label="Clear partner search" onClick={()=>{setSearch('');searchInput.current?.focus()}}><X size={17}/></button>}</div>
+      </div>
+      <div className="partners-results-heading"><p role="status" aria-live="polite" aria-atomic="true">{filtered?`${partners.length} of ${partnerDirectory.length} companies`:`All ${partnerDirectory.length} companies`}{query?` matching “${search.trim()}”`:''}</p><span>LISTED A–Z</span></div>
+      <ul id="partners-results" className="partners-logo-grid" aria-label="Partner companies">{partners.map(partner=><li key={partner.file}><article className="partners-logo-card"><div className="partners-logo-stage"><DirectoryLogo partner={partner}/></div><h3>{partner.name}</h3></article></li>)}</ul>
+      {partners.length===0?<div className="partners-empty"><Search size={28} strokeWidth={1.5} aria-hidden="true"/><h3>No companies found</h3><p>Try a different name or clear the filters to see every partner.</p><button type="button" onClick={reset}>Show all partners <ArrowRight size={16}/></button></div>:null}
+      {filtered && partners.length>0?<button type="button" className="partners-reset" onClick={reset}>Clear filters <X size={14}/></button>:null}
+      <p className="partners-availability">For current manufacturer information and product availability, <Link to="/contact">contact our team.</Link></p>
+    </section>
+    <section className="partners-help shell" aria-labelledby="partners-help-title"><div><h2 id="partners-help-title">Have a manufacturer<br/>or project in mind?</h2><p>Tell us what your facility needs. Our team can help you explore equipment options and the support your project requires.</p></div><div className="partners-help-actions"><Link className="partners-contact-button" to="/contact">Talk to our team <ArrowUpRight size={20}/></Link><Link to="/services">Explore our services <ArrowUpRight size={16}/></Link></div></section>
+  </div>;
 }
 
 export function PartnerMarquee(){

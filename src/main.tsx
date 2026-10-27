@@ -7,6 +7,7 @@ import './design-refinements.css';
 import './premium-experience.css';
 import './cinematic-upgrade.css';
 import './navigation.css';
+import './partners.css';
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
