@@ -33,12 +33,23 @@ function DirectoryLogo({partner}:{partner:typeof archive.partners[number]}) {
 export function PartnersPage(){
   const [search,setSearch]=useState('');
   const [group,setGroup]=useState(0);
+  const pageRef=useRef<HTMLDivElement>(null);
   const searchInput=useRef<HTMLInputElement>(null);
   const query=search.trim().toLowerCase();
   const partners=partnerDirectory.filter(partner=>inPartnerGroup(partner.name,group) && partner.name.toLowerCase().includes(query));
+  useEffect(()=>{
+    if(window.matchMedia('(prefers-reduced-motion: reduce)').matches || !('IntersectionObserver' in window)) return;
+    const observer=new IntersectionObserver(entries=>{
+      entries.forEach(entry=>{
+        if(entry.isIntersecting){entry.target.classList.add('partner-is-visible');observer.unobserve(entry.target)}
+      });
+    },{threshold:0.12});
+    pageRef.current?.querySelectorAll('.partners-logo-grid > li:not(.partner-is-visible)').forEach(item=>observer.observe(item));
+    return ()=>observer.disconnect();
+  },[group,query]);
   const filtered=Boolean(query || group);
   const reset=()=>{setSearch('');setGroup(0);searchInput.current?.focus()};
-  return <div className="partners-page">
+  return <div ref={pageRef} className="partners-page">
     <section className="partners-intro shell" aria-labelledby="partners-title">
       <nav className="partners-breadcrumb" aria-label="Breadcrumb"><Link to="/">Home</Link><span aria-hidden="true">/</span><span aria-current="page">Partners</span></nav>
       <div className="partners-hero">
@@ -53,7 +64,7 @@ export function PartnersPage(){
         <div className="partners-search-field"><Search size={18} aria-hidden="true"/><label className="sr-only" htmlFor="partners-search">Search partners</label><input ref={searchInput} id="partners-search" type="search" placeholder="Search company name" value={search} onChange={event=>setSearch(event.target.value)} aria-controls="partners-results"/>{search && <button type="button" aria-label="Clear partner search" onClick={()=>{setSearch('');searchInput.current?.focus()}}><X size={17}/></button>}</div>
       </div>
       <div className="partners-results-heading"><p role="status" aria-live="polite" aria-atomic="true">{filtered?`${partners.length} of ${partnerDirectory.length} companies`:`All ${partnerDirectory.length} companies`}{query?` matching “${search.trim()}”`:''}</p><span>LISTED A–Z</span></div>
-      <ul id="partners-results" className="partners-logo-grid" aria-label="Partner companies">{partners.map(partner=><li key={partner.file}><article className="partners-logo-card"><div className="partners-logo-stage"><DirectoryLogo partner={partner}/></div><h3>{partner.name}</h3></article></li>)}</ul>
+      <ul id="partners-results" className="partners-logo-grid" aria-label="Partner companies">{partners.map((partner,index)=><li key={partner.file} style={{animationDelay:`${(index%5)*40}ms`}}><article className="partners-logo-card"><div className="partners-logo-stage"><DirectoryLogo partner={partner}/></div><h3>{partner.name}</h3></article></li>)}</ul>
       {partners.length===0?<div className="partners-empty"><Search size={28} strokeWidth={1.5} aria-hidden="true"/><h3>No companies found</h3><p>Try a different name or clear the filters to see every partner.</p><button type="button" onClick={reset}>Show all partners <ArrowRight size={16}/></button></div>:null}
       {filtered && partners.length>0?<button type="button" className="partners-reset" onClick={reset}>Clear filters <X size={14}/></button>:null}
       <p className="partners-availability">For current manufacturer information and product availability, <Link to="/contact">contact our team.</Link></p>
