@@ -70,7 +70,6 @@ export function CinematicHero() {
       <div className="cine-vignette" aria-hidden="true"/>
       <div className="cine-gridlines" aria-hidden="true"/>
       <div className="cine-content">
-        <span className="cine-eyebrow"><span className="cine-live-dot"/> ORBIT HEALTH SOLUTIONS <span className="cine-ethiopia">/ ETHIOPIA</span></span>
         <h1 id="hero-title">Equipping Ethiopia<br/>for <em>better care.</em></h1>
         <p>Medical equipment and healthcare infrastructure—supported from project planning through installation, training and technical service.</p>
         <div className="cine-actions">
